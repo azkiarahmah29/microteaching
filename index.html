@@ -6,6 +6,8 @@
   <title>Pelayanan Prima &amp; Layanan Pelanggan • Media Ajar Microteaching MPLB</title>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
   <!-- Google Fonts: Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -183,19 +185,16 @@
     }
   </style>
 </head>
-<body class="min-h-screen lg:h-screen lg:overflow-hidden flex flex-col bg-slate-50 text-slate-900 select-none">
+<body class="min-h-screen flex flex-col bg-slate-50 text-slate-900 select-none">
 
   <!-- ===================================================================== -->
-  <!-- 1. HEADER & MICROTEACHING TIMER (10 MENIT)                            -->
+  <!-- 1. HEADER & MICROTEACHING TIMER (10 MENIT - 3 FASE MENGAJAR)          -->
   <!-- ===================================================================== -->
   <header class="bg-gradient-to-r from-[#1E3A8A] via-[#312E81] to-[#1E3A8A] text-white border-b border-indigo-950 shadow-md px-4 py-2.5 lg:px-6 flex flex-wrap items-center justify-between gap-3 shrink-0 z-20">
     <!-- Identitas Mata Pelajaran, Sekolah, & Guru Penyusun -->
     <div class="flex items-center gap-3">
       <div class="w-10 h-10 rounded-xl bg-amber-500 text-indigo-950 flex items-center justify-center shadow-md shrink-0">
-        <!-- Ikon Gedung Kantor / Front Office -->
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-        </svg>
+        <i data-lucide="building-2" class="w-6 h-6"></i>
       </div>
       <div>
         <div class="flex items-center gap-2 flex-wrap">
@@ -207,18 +206,18 @@
           </span>
         </div>
         <p class="text-xs sm:text-sm text-blue-100 font-medium">
-          SMKS Pasundan 3 Bandung &bull; Kelas X MPLB &bull; Guru: <strong class="text-amber-300 font-bold">Azkia Rahmah (2406773)</strong>
+          SMKS Pasundan 3 Bandung &bull; X MPLB &bull; <strong class="text-amber-300 font-bold">Azkia Rahmah</strong>
         </p>
       </div>
     </div>
 
-    <!-- Widget Timer Mundur 10:00 + Indikator Fase + Sembunyikan/Tampilkan -->
+    <!-- Widget Timer Mundur 10:00 + Indikator 3 Fase + Sembunyikan/Tampilkan Angka -->
     <div class="flex items-center gap-2 ml-auto">
       <div id="timer-panel" class="flex items-center gap-2.5 sm:gap-3 bg-indigo-950/90 border border-indigo-700/80 rounded-xl px-3 py-1.5 shadow-inner">
         <!-- Indikator Fase Otomatis -->
         <div class="hidden md:flex flex-col items-end pr-2.5 border-r border-indigo-800">
           <span class="text-[10px] uppercase tracking-wider text-blue-200 font-semibold">Indikator Fase</span>
-          <span id="phase-badge" class="text-xs font-extrabold text-amber-300">Fase 1: Pendahuluan (10:00–08:01)</span>
+          <span id="phase-badge" class="text-xs font-extrabold text-amber-300">Fase 1: Pendahuluan (2 Menit)</span>
         </div>
 
         <!-- Tampilan Timer Mundur -->
@@ -232,33 +231,22 @@
         <!-- Tombol Play / Pause / Reset -->
         <div class="flex items-center gap-1">
           <button id="btn-timer-play" onclick="startMicroTimer()" title="Mulai Timer" class="p-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-indigo-950 font-bold transition active:scale-95" aria-label="Mulai Timer">
-            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" />
-            </svg>
+            <i data-lucide="play" class="w-4 h-4 fill-current"></i>
           </button>
           <button id="btn-timer-pause" onclick="pauseMicroTimer()" title="Jeda Timer" class="p-1.5 rounded-lg bg-amber-300 hover:bg-amber-200 text-indigo-950 font-bold transition active:scale-95 hidden" aria-label="Jeda Timer">
-            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M5.75 3a.75.75 0 00-.75.75v12.5c0 .414.336.75.75.75h1.5a.75.75 0 00.75-.75V3.75A.75.75 0 007.25 3h-1.5zM12.75 3a.75.75 0 00-.75.75v12.5c0 .414.336.75.75.75h1.5a.75.75 0 00.75-.75V3.75a.75.75 0 00-.75-.75h-1.5z" />
-            </svg>
+            <i data-lucide="pause" class="w-4 h-4 fill-current"></i>
           </button>
           <button onclick="resetMicroTimer()" title="Reset Timer ke 10:00" class="p-1.5 rounded-lg bg-blue-900 hover:bg-blue-800 text-blue-100 border border-blue-700 transition active:scale-95" aria-label="Reset Timer">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-            </svg>
+            <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
           </button>
         </div>
       </div>
 
-      <!-- Tombol Sembunyikan / Tampilkan Timer -->
-      <button id="btn-toggle-timer" onclick="toggleTimerVisibility()" title="Sembunyikan/Tampilkan Timer" class="flex items-center gap-1.5 px-2.5 py-2 rounded-xl bg-indigo-950/80 hover:bg-indigo-900 border border-indigo-700 text-blue-100 hover:text-white text-xs font-semibold transition active:scale-95">
-        <svg id="icon-eye-open" class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-          <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-        </svg>
-        <svg id="icon-eye-closed" class="w-4 h-4 text-amber-400 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
-        </svg>
-        <span id="label-toggle-timer" class="hidden sm:inline">Sembunyikan</span>
+      <!-- Tombol Sembunyikan / Tampilkan Angka Timer -->
+      <button id="btn-toggle-timer" onclick="toggleTimerVisibility()" title="Sembunyikan/Tampilkan Angka Timer" class="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-indigo-950/80 hover:bg-indigo-900 border border-indigo-700 text-blue-100 hover:text-white text-xs font-semibold transition active:scale-95">
+        <i id="icon-eye-open" data-lucide="eye" class="w-4 h-4 text-amber-400"></i>
+        <i id="icon-eye-closed" data-lucide="eye-off" class="w-4 h-4 text-amber-400 hidden"></i>
+        <span id="label-toggle-timer" class="hidden sm:inline">Sembunyikan Angka</span>
       </button>
     </div>
   </header>
@@ -266,30 +254,30 @@
   <!-- ===================================================================== -->
   <!-- 2. NAVIGASI 4 TAB UTAMA                                               -->
   <!-- ===================================================================== -->
-  <nav aria-label="Tahapan Pembelajaran" class="bg-white border-b border-slate-200 px-3 py-2 lg:px-6 shrink-0 shadow-sm z-10">
-    <div class="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-2">
+  <nav aria-label="Tahapan Pembelajaran" class="bg-white border-b border-slate-200 px-3 py-2.5 lg:px-6 shrink-0 shadow-sm z-10">
+    <div class="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-2.5">
       <!-- Tab 1 -->
       <button onclick="switchTab(1)" id="nav-tab-1" class="nav-tab-btn flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl font-bold text-xs sm:text-sm lg:text-base transition-all border-2 bg-[#1E3A8A] text-white border-[#1E3A8A] shadow-sm">
         <span class="w-6 h-6 rounded-lg bg-amber-400 text-indigo-950 text-xs font-extrabold flex items-center justify-center shrink-0">1</span>
-        <span class="truncate">1. Pemantik &amp; Tujuan</span>
+        <span class="truncate">Pemantik &amp; Tujuan</span>
       </button>
 
       <!-- Tab 2 -->
       <button onclick="switchTab(2)" id="nav-tab-2" class="nav-tab-btn flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl font-bold text-xs sm:text-sm lg:text-base transition-all border-2 bg-slate-50 text-slate-700 border-slate-200 hover:border-blue-800 hover:bg-blue-50/60">
         <span class="w-6 h-6 rounded-lg bg-slate-200 text-slate-700 text-xs font-extrabold flex items-center justify-center shrink-0">2</span>
-        <span class="truncate">2. Materi Inti (3A, 3S &amp; LAST)</span>
+        <span class="truncate">Materi Inti (3A &bull; 3S &bull; LAST)</span>
       </button>
 
       <!-- Tab 3 -->
       <button onclick="switchTab(3)" id="nav-tab-3" class="nav-tab-btn flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl font-bold text-xs sm:text-sm lg:text-base transition-all border-2 bg-slate-50 text-slate-700 border-slate-200 hover:border-blue-800 hover:bg-blue-50/60">
         <span class="w-6 h-6 rounded-lg bg-slate-200 text-slate-700 text-xs font-extrabold flex items-center justify-center shrink-0">3</span>
-        <span class="truncate">3. Simulasi &amp; Checklist IK</span>
+        <span class="truncate">Simulasi &amp; Checklist IK</span>
       </button>
 
       <!-- Tab 4 -->
       <button onclick="switchTab(4)" id="nav-tab-4" class="nav-tab-btn flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl font-bold text-xs sm:text-sm lg:text-base transition-all border-2 bg-slate-50 text-slate-700 border-slate-200 hover:border-blue-800 hover:bg-blue-50/60">
         <span class="w-6 h-6 rounded-lg bg-slate-200 text-slate-700 text-xs font-extrabold flex items-center justify-center shrink-0">4</span>
-        <span class="truncate">4. Kuis Kilat &amp; Refleksi</span>
+        <span class="truncate">Kuis Kilat &amp; Refleksi</span>
       </button>
     </div>
   </nav>
@@ -297,45 +285,45 @@
   <!-- ===================================================================== -->
   <!-- 3. AREA KONTEN UTAMA (SEMUA 4 TAB DIRENDER LANGSUNG DI DALAM DOM)     -->
   <!-- ===================================================================== -->
-  <main class="flex-1 min-h-0 max-w-7xl w-full mx-auto p-3 lg:p-4 pb-24 lg:pb-4 flex flex-col overflow-y-auto lg:overflow-hidden">
+  <main class="flex-1 max-w-7xl w-full mx-auto p-4 lg:px-6 lg:pt-4 pb-28 flex flex-col">
 
     <!-- =================================================================== -->
     <!-- TAB 1: PEMANTIK & TUJUAN PEMBELAJARAN                               -->
     <!-- =================================================================== -->
-    <section id="tab-1" class="tab-panel flex-1 min-h-0 flex flex-col justify-between gap-2.5 lg:pr-44">
-      <!-- Bar Pertanyaan Pemantik Atas -->
-      <div class="bg-white px-4 py-2.5 rounded-2xl border border-slate-200 shadow-sm flex flex-wrap items-center justify-between gap-2 shrink-0">
-        <div class="flex items-center gap-2.5">
-          <span class="px-2.5 py-1 rounded-lg bg-blue-900 text-amber-300 text-xs font-extrabold uppercase tracking-wide shrink-0">
-            Apersepsi Kelas
+    <section id="tab-1" class="tab-panel flex-1 flex flex-col justify-between gap-4 lg:pr-44">
+      <!-- Kotak Pertanyaan Pemantik -->
+      <div class="bg-white px-5 py-3.5 rounded-2xl border-2 border-blue-900/15 shadow-sm flex flex-wrap items-center justify-between gap-3">
+        <div class="flex items-center gap-3">
+          <span class="px-3 py-1.5 rounded-xl bg-[#1E3A8A] text-amber-300 text-xs font-extrabold uppercase tracking-wide shrink-0">
+            Pertanyaan Pemantik
           </span>
-          <p class="text-xs sm:text-sm lg:text-base font-bold text-slate-800">
-            &ldquo;Bagaimana perasaan kalian jika dilayani petugas kantor yang tersenyum ramah vs cuek/ketus?&rdquo;
+          <p class="text-sm sm:text-base lg:text-lg font-extrabold text-slate-800 leading-snug">
+            &ldquo;Bagaimana perasaan kalian jika dilayani oleh petugas kantor yang tersenyum ramah dibandingkan dengan yang cuek/ketus?&rdquo;
           </p>
         </div>
-        <button onclick="openBothApersepsi()" class="px-3 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-indigo-950 text-xs font-extrabold transition shadow-sm shrink-0">
-          Buka Kedua Dialog
+        <button onclick="openBothApersepsi()" class="px-3.5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-indigo-950 text-xs font-extrabold transition shadow-sm shrink-0">
+          Buka Kedua Kondisi
         </button>
       </div>
 
-      <!-- Perbandingan 2 Kartu Interaktif (Kondisi A vs Kondisi B) -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-3 flex-1 min-h-0">
+      <!-- Perbandingan Interaktif 2 Kartu Besar Berdampingan (Kondisi A vs Kondisi B) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <!-- KARTU KONDISI A: Petugas Cuek & Ketus -->
-        <div id="apersepsi-card-a" onclick="selectApersepsiCard('A')" role="button" tabindex="0" class="cursor-pointer rounded-2xl bg-white border-2 border-slate-200 hover:border-rose-500 p-3.5 lg:p-4 flex flex-col justify-between shadow-sm transition-all">
+        <div id="apersepsi-card-a" onclick="selectApersepsiCard('A')" role="button" tabindex="0" class="cursor-pointer rounded-2xl bg-white border-2 border-slate-200 hover:border-rose-500 p-5 flex flex-col justify-between shadow-sm transition-all">
           <div>
-            <div class="flex items-center justify-between gap-2 mb-2.5">
+            <div class="flex items-center justify-between gap-2 mb-3">
               <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-extrabold bg-rose-100 text-rose-800">
                 KONDISI A &bull; PETUGAS CUEK &amp; KETUS
               </span>
               <span id="badge-selected-a" class="text-xs font-bold text-rose-700 bg-rose-50 px-2.5 py-1 rounded-lg border border-rose-200">
-                Klik untuk Dialog
+                Klik untuk Dampak
               </span>
             </div>
 
-            <div class="flex items-center gap-3.5">
+            <div class="flex items-center gap-4">
               <!-- Ilustrasi SVG Petugas Cuek -->
-              <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-rose-50 border border-rose-200 flex items-center justify-center shrink-0">
-                <svg class="w-14 h-14" viewBox="0 0 80 80" fill="none">
+              <div class="w-20 h-20 rounded-2xl bg-rose-50 border border-rose-200 flex items-center justify-center shrink-0">
+                <svg class="w-16 h-16" viewBox="0 0 80 80" fill="none">
                   <circle cx="38" cy="30" r="16" fill="#FED7AA" stroke="#9A3412" stroke-width="2.5"/>
                   <path d="M29 27L35 29" stroke="#7C2D12" stroke-width="2.5" stroke-linecap="round"/>
                   <path d="M47 27L41 29" stroke="#7C2D12" stroke-width="2.5" stroke-linecap="round"/>
@@ -347,43 +335,43 @@
                 </svg>
               </div>
               <div>
-                <h2 class="text-base sm:text-lg font-extrabold text-slate-900">
+                <h2 class="text-lg sm:text-xl font-extrabold text-slate-900">
                   Sikap Acuh &amp; Tidak Menyapa
                 </h2>
-                <p class="text-xs sm:text-sm text-slate-600 mt-0.5">
-                  Menunduk menatap gawai, tanpa senyum, kontak mata minim, dan menjawab dengan nada ketus.
+                <p class="text-sm text-slate-600 mt-1">
+                  Menunduk menatap layar, tanpa senyum, kontak mata minim, dan menjawab singkat dengan nada ketus.
                 </p>
               </div>
             </div>
           </div>
 
-          <div id="apersepsi-detail-a" class="mt-2.5 pt-2.5 border-t border-rose-100 bg-rose-50/80 rounded-xl p-2.5 hidden">
-            <p class="text-xs sm:text-sm font-semibold text-slate-800 italic">
-              <span class="not-italic px-1.5 py-0.5 rounded bg-rose-600 text-white text-[10px] font-extrabold mr-1.5">DIALOG</span>
+          <div id="apersepsi-detail-a" class="mt-4 pt-3 border-t border-rose-100 bg-rose-50/90 rounded-xl p-3.5 hidden">
+            <p class="text-sm font-semibold text-slate-800 italic">
+              <span class="not-italic px-2 py-0.5 rounded bg-rose-600 text-white text-[11px] font-extrabold mr-1.5">DIALOG</span>
               &ldquo;(Menunduk) Ya, mau cari siapa? Tulis sendiri aja di buku tamu itu, saya lagi sibuk.&rdquo;
             </p>
-            <p class="text-xs font-bold text-rose-800 mt-1.5">
-              Dampak Kepuasan Tamu: Tamu merasa diabaikan, tidak dihargai, dan citra instansi menurun drastis.
+            <p class="text-xs sm:text-sm font-bold text-rose-800 mt-2">
+              Dampak Kepuasan Tamu: Tamu merasa diabaikan, kecewa, tidak dihargai, dan citra instansi menurun drastis.
             </p>
           </div>
         </div>
 
         <!-- KARTU KONDISI B: Petugas Ramah Salam 3S -->
-        <div id="apersepsi-card-b" onclick="selectApersepsiCard('B')" role="button" tabindex="0" class="cursor-pointer rounded-2xl bg-white border-2 border-slate-200 hover:border-blue-800 p-3.5 lg:p-4 flex flex-col justify-between shadow-sm transition-all">
+        <div id="apersepsi-card-b" onclick="selectApersepsiCard('B')" role="button" tabindex="0" class="cursor-pointer rounded-2xl bg-white border-2 border-slate-200 hover:border-blue-800 p-5 flex flex-col justify-between shadow-sm transition-all">
           <div>
-            <div class="flex items-center justify-between gap-2 mb-2.5">
+            <div class="flex items-center justify-between gap-2 mb-3">
               <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-extrabold bg-blue-100 text-blue-900">
                 KONDISI B &bull; PETUGAS RAMAH SALAM 3S
               </span>
               <span id="badge-selected-b" class="text-xs font-bold text-blue-900 bg-blue-50 px-2.5 py-1 rounded-lg border border-blue-200">
-                Klik untuk Dialog
+                Klik untuk Dampak
               </span>
             </div>
 
-            <div class="flex items-center gap-3.5">
+            <div class="flex items-center gap-4">
               <!-- Ilustrasi SVG Petugas Ramah Blazer Navy & Syal Emas -->
-              <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-blue-50 border border-blue-200 flex items-center justify-center shrink-0">
-                <svg class="w-14 h-14" viewBox="0 0 80 80" fill="none">
+              <div class="w-20 h-20 rounded-2xl bg-blue-50 border border-blue-200 flex items-center justify-center shrink-0">
+                <svg class="w-16 h-16" viewBox="0 0 80 80" fill="none">
                   <circle cx="40" cy="28" r="16" fill="#FED7AA" stroke="#1E3A8A" stroke-width="2.5"/>
                   <circle cx="34" cy="26" r="2.2" fill="#1E3A8A"/>
                   <circle cx="46" cy="26" r="2.2" fill="#1E3A8A"/>
@@ -394,53 +382,82 @@
                 </svg>
               </div>
               <div>
-                <h2 class="text-base sm:text-lg font-extrabold text-slate-900">
+                <h2 class="text-lg sm:text-xl font-extrabold text-slate-900">
                   Berdiri Sigap &amp; Salam 3S
                 </h2>
-                <p class="text-xs sm:text-sm text-slate-600 mt-0.5">
+                <p class="text-sm text-slate-600 mt-1">
                   Berdiri ramah menyambut tamu, tersenyum tulus, menjaga kontak mata, dan menyapa santun.
                 </p>
               </div>
             </div>
           </div>
 
-          <div id="apersepsi-detail-b" class="mt-2.5 pt-2.5 border-t border-blue-100 bg-blue-50/80 rounded-xl p-2.5 hidden">
-            <p class="text-xs sm:text-sm font-semibold text-slate-900 italic">
-              <span class="not-italic px-1.5 py-0.5 rounded bg-[#1E3A8A] text-amber-300 text-[10px] font-extrabold mr-1.5">DIALOG</span>
+          <div id="apersepsi-detail-b" class="mt-4 pt-3 border-t border-blue-100 bg-blue-50/90 rounded-xl p-3.5 hidden">
+            <p class="text-sm font-semibold text-slate-900 italic">
+              <span class="not-italic px-2 py-0.5 rounded bg-[#1E3A8A] text-amber-300 text-[11px] font-extrabold mr-1.5">DIALOG</span>
               &ldquo;(Tersenyum ramah) Selamat pagi, SMKS Pasundan 3 Bandung, dengan Azkia. Ada yang bisa saya bantu, Bapak/Ibu?&rdquo;
             </p>
-            <p class="text-xs font-bold text-blue-900 mt-1.5">
-              Dampak Kepuasan Tamu: Tamu merasa dihormati, nyaman, dan percaya penuh pada profesionalisme kantor.
+            <p class="text-xs sm:text-sm font-bold text-blue-900 mt-2">
+              Dampak Kepuasan Tamu: Tamu merasa dihormati, nyaman, terbantu, dan percaya penuh pada profesionalisme kantor.
             </p>
           </div>
         </div>
       </div>
 
-      <!-- 3 Tujuan Pembelajaran Sesuai Modul -->
-      <div class="bg-gradient-to-r from-[#1E3A8A] to-[#312E81] text-white rounded-2xl p-3.5 lg:px-5 lg:py-3.5 border border-indigo-900 shadow-md shrink-0">
-        <div class="flex items-center justify-between mb-2">
-          <span class="text-xs font-extrabold uppercase tracking-wider text-amber-300">
-            Tujuan Pembelajaran Hari Ini (Kelas X MPLB)
-          </span>
-          <span class="text-[11px] text-blue-200 hidden sm:inline">Dasar Program MPLB</span>
+      <!-- Panel 3 Tujuan Pembelajaran (Klik untuk Membuka Satu per Satu) -->
+      <div class="bg-gradient-to-r from-[#1E3A8A] to-[#312E81] text-white rounded-2xl p-4 lg:p-5 border border-indigo-900 shadow-md">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+          <div class="flex items-center gap-2">
+            <i data-lucide="target" class="w-5 h-5 text-amber-400"></i>
+            <span class="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-amber-300">
+              3 Tujuan Pembelajaran (Klik Kartu untuk Membuka Satu per Satu)
+            </span>
+          </div>
+          <button onclick="revealAllObjectives()" class="px-3 py-1 rounded-lg bg-white/15 hover:bg-white/25 text-amber-300 text-xs font-bold border border-white/20 transition">
+            Buka Semua Tujuan
+          </button>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-2.5">
-          <div class="bg-white/10 border border-white/15 rounded-xl p-2.5 flex items-start gap-2.5">
-            <span class="w-6 h-6 rounded-lg bg-amber-400 text-indigo-950 font-extrabold text-xs flex items-center justify-center shrink-0 mt-0.5">1</span>
-            <p class="text-xs sm:text-sm text-white leading-snug">
-              Menjelaskan <strong>3 unsur utama</strong> pelayanan prima (<em>Attitude, Attention, Action</em>) dengan tepat.
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <!-- Tujuan 1 -->
+          <div onclick="toggleObjective(0)" id="obj-card-0" role="button" tabindex="0" class="cursor-pointer bg-white/10 hover:bg-white/15 border-2 border-white/20 rounded-xl p-3.5 transition-all">
+            <div class="flex items-center justify-between mb-1.5">
+              <span class="px-2.5 py-0.5 rounded-lg bg-amber-400 text-indigo-950 font-extrabold text-xs">Tujuan 1</span>
+              <span id="obj-status-0" class="text-[11px] font-semibold text-blue-200">Klik untuk buka</span>
+            </div>
+            <p id="obj-text-0" class="hidden text-sm text-white leading-snug mt-1">
+              Menjelaskan <strong>3 unsur utama</strong> pelayanan prima (<em>Attitude, Attention, Action</em> / 3A) dengan tepat.
+            </p>
+            <p id="obj-placeholder-0" class="text-xs text-blue-200/80 italic">
+              Unsur Utama Pelayanan Prima (3A)...
             </p>
           </div>
-          <div class="bg-white/10 border border-white/15 rounded-xl p-2.5 flex items-start gap-2.5">
-            <span class="w-6 h-6 rounded-lg bg-amber-400 text-indigo-950 font-extrabold text-xs flex items-center justify-center shrink-0 mt-0.5">2</span>
-            <p class="text-xs sm:text-sm text-white leading-snug">
-              Menguraikan teknik <strong>Salam 3S</strong> dan penanganan keluhan metode <strong>LAST</strong>.
+
+          <!-- Tujuan 2 -->
+          <div onclick="toggleObjective(1)" id="obj-card-1" role="button" tabindex="0" class="cursor-pointer bg-white/10 hover:bg-white/15 border-2 border-white/20 rounded-xl p-3.5 transition-all">
+            <div class="flex items-center justify-between mb-1.5">
+              <span class="px-2.5 py-0.5 rounded-lg bg-amber-400 text-indigo-950 font-extrabold text-xs">Tujuan 2</span>
+              <span id="obj-status-1" class="text-[11px] font-semibold text-blue-200">Klik untuk buka</span>
+            </div>
+            <p id="obj-text-1" class="hidden text-sm text-white leading-snug mt-1">
+              Menguraikan teknik <strong>Salam 3S</strong> (Senyum, Salam, Sapa) dan penanganan keluhan metode <strong>LAST</strong>.
+            </p>
+            <p id="obj-placeholder-1" class="text-xs text-blue-200/80 italic">
+              Teknik Salam 3S &amp; Metode LAST...
             </p>
           </div>
-          <div class="bg-white/10 border border-white/15 rounded-xl p-2.5 flex items-start gap-2.5">
-            <span class="w-6 h-6 rounded-lg bg-amber-400 text-indigo-950 font-extrabold text-xs flex items-center justify-center shrink-0 mt-0.5">3</span>
-            <p class="text-xs sm:text-sm text-white leading-snug">
-              Mensimulasikan <strong>Instruksi Kerja (IK)</strong> penerimaan tamu di <em>front office</em> secara profesional.
+
+          <!-- Tujuan 3 -->
+          <div onclick="toggleObjective(2)" id="obj-card-2" role="button" tabindex="0" class="cursor-pointer bg-white/10 hover:bg-white/15 border-2 border-white/20 rounded-xl p-3.5 transition-all">
+            <div class="flex items-center justify-between mb-1.5">
+              <span class="px-2.5 py-0.5 rounded-lg bg-amber-400 text-indigo-950 font-extrabold text-xs">Tujuan 3</span>
+              <span id="obj-status-2" class="text-[11px] font-semibold text-blue-200">Klik untuk buka</span>
+            </div>
+            <p id="obj-text-2" class="hidden text-sm text-white leading-snug mt-1">
+              Mensimulasikan <strong>Instruksi Kerja (IK)</strong> penerimaan tamu di <em>front office</em> secara ramah, santun, dan profesional.
+            </p>
+            <p id="obj-placeholder-2" class="text-xs text-blue-200/80 italic">
+              Simulasi Instruksi Kerja Front Office...
             </p>
           </div>
         </div>
@@ -448,256 +465,395 @@
     </section>
 
     <!-- =================================================================== -->
-    <!-- TAB 2: MATERI INTI (KONSEP 3A, SALAM 3S & METODE LAST)              -->
+    <!-- TAB 2: MATERI INTI (1 MATERI = 1 TAMPILAN PENUH & LEGA)             -->
     <!-- =================================================================== -->
-    <section id="tab-2" class="tab-panel hidden flex-1 min-h-0 flex flex-col gap-3 lg:pr-44">
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-3 flex-1 min-h-0">
+    <section id="tab-2" class="tab-panel hidden flex-1 flex flex-col gap-4 lg:pr-44">
 
-        <!-- BAGIAN A: KONSEP 3A PELAYANAN PRIMA -->
-        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-3.5 flex flex-col justify-between min-h-0">
-          <div class="flex items-center justify-between border-b border-slate-100 pb-2 mb-2 shrink-0">
-            <div>
-              <span class="text-[11px] font-extrabold uppercase tracking-wider text-blue-900">Bagian A &bull; Pondasi Layanan</span>
-              <h2 class="text-sm sm:text-base font-extrabold text-slate-900">
-                Konsep 3A Pelayanan Prima
-              </h2>
-            </div>
-            <button onclick="toggleAll3A()" class="text-[11px] font-bold px-2.5 py-1 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-900 border border-blue-200 transition">
-              Buka/Tutup
-            </button>
-          </div>
+      <!-- Bilah Sub-Navigasi Slide Materi -->
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm px-4 py-2.5 flex flex-wrap items-center justify-between gap-2.5">
+        <!-- Tombol Sebelumnya -->
+        <button onclick="prevTab2Slide()" id="btn-sub-prev" disabled class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-slate-200 bg-slate-100 text-slate-400 text-xs sm:text-sm font-bold transition disabled:cursor-not-allowed">
+          <span>&larr; Sebelumnya</span>
+        </button>
 
-          <div class="flex flex-col gap-2 flex-1 justify-center overflow-y-auto">
-            <!-- Kartu 3A - 1: Attitude -->
-            <div onclick="toggleCard3A(0)" id="card-3a-0" class="cursor-pointer rounded-xl border-2 border-blue-800 bg-white p-2.5 shadow-sm transition-all">
-              <div class="flex items-center justify-between">
-                <div class="flex items-center gap-2">
-                  <span class="w-7 h-7 rounded-lg bg-[#1E3A8A] text-amber-300 font-extrabold text-xs flex items-center justify-center shrink-0">A1</span>
-                  <div>
-                    <h3 class="font-extrabold text-xs sm:text-sm text-slate-900">Attitude (Sikap)</h3>
-                    <p class="text-[10px] text-slate-500">Klik untuk detail &amp; contoh</p>
-                  </div>
-                </div>
-                <svg id="chevron-3a-0" class="w-4 h-4 text-blue-900 rotate-180 transition-transform" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-                </svg>
-              </div>
-              <div id="content-3a-0" class="mt-2 pt-2 border-t border-slate-100 text-xs text-slate-700 space-y-1">
-                <p>Perilaku ramah, sopan, sabar, berpenampilan rapi, dan berpikiran positif.</p>
-                <p class="text-blue-950 bg-amber-50 px-2 py-1 rounded-lg border border-amber-200">
-                  <strong>Contoh:</strong> Tersenyum, menyapa lebih dahulu, tidak memotong pembicaraan.
-                </p>
-              </div>
-            </div>
-
-            <!-- Kartu 3A - 2: Attention -->
-            <div onclick="toggleCard3A(1)" id="card-3a-1" class="cursor-pointer rounded-xl border-2 border-slate-200 hover:border-blue-800 bg-slate-50/80 p-2.5 transition-all">
-              <div class="flex items-center justify-between">
-                <div class="flex items-center gap-2">
-                  <span class="w-7 h-7 rounded-lg bg-[#312E81] text-amber-300 font-extrabold text-xs flex items-center justify-center shrink-0">A2</span>
-                  <div>
-                    <h3 class="font-extrabold text-xs sm:text-sm text-slate-900">Attention (Perhatian)</h3>
-                    <p class="text-[10px] text-slate-500">Klik untuk detail &amp; contoh</p>
-                  </div>
-                </div>
-                <svg id="chevron-3a-1" class="w-4 h-4 text-slate-400 transition-transform" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-                </svg>
-              </div>
-              <div id="content-3a-1" class="hidden mt-2 pt-2 border-t border-slate-100 text-xs text-slate-700 space-y-1">
-                <p>Kepedulian penuh terhadap kebutuhan &amp; keluhan pelanggan tanpa distraksi.</p>
-                <p class="text-blue-950 bg-amber-50 px-2 py-1 rounded-lg border border-amber-200">
-                  <strong>Contoh:</strong> Mendengarkan aktif, mencatat hal penting, menanyakan kebutuhan secara jelas.
-                </p>
-              </div>
-            </div>
-
-            <!-- Kartu 3A - 3: Action -->
-            <div onclick="toggleCard3A(2)" id="card-3a-2" class="cursor-pointer rounded-xl border-2 border-slate-200 hover:border-blue-800 bg-slate-50/80 p-2.5 transition-all">
-              <div class="flex items-center justify-between">
-                <div class="flex items-center gap-2">
-                  <span class="w-7 h-7 rounded-lg bg-[#1E3A8A] text-amber-300 font-extrabold text-xs flex items-center justify-center shrink-0">A3</span>
-                  <div>
-                    <h3 class="font-extrabold text-xs sm:text-sm text-slate-900">Action (Tindakan)</h3>
-                    <p class="text-[10px] text-slate-500">Klik untuk detail &amp; contoh</p>
-                  </div>
-                </div>
-                <svg id="chevron-3a-2" class="w-4 h-4 text-slate-400 transition-transform" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-                </svg>
-              </div>
-              <div id="content-3a-2" class="hidden mt-2 pt-2 border-t border-slate-100 text-xs text-slate-700 space-y-1">
-                <p>Tindakan nyata dan respon cepat untuk membantu pelanggan hingga tuntas.</p>
-                <p class="text-blue-950 bg-amber-50 px-2 py-1 rounded-lg border border-amber-200">
-                  <strong>Contoh:</strong> Membantu mengisi formulir, mengantar tamu ke ruangan, menindaklanjuti keluhan.
-                </p>
-              </div>
-            </div>
-          </div>
+        <!-- 3 Tombol Sub-Materi Besar -->
+        <div class="flex flex-wrap items-center justify-center gap-2">
+          <button onclick="switchTab2Slide(0)" id="subnav-mat-0" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-extrabold transition-all border-2 bg-[#1E3A8A] text-amber-300 border-[#1E3A8A] shadow-sm">
+            Materi 1/3: Konsep 3A
+          </button>
+          <button onclick="switchTab2Slide(1)" id="subnav-mat-1" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-extrabold transition-all border-2 bg-slate-50 text-slate-700 border-slate-200 hover:border-blue-800 hover:bg-blue-50">
+            Materi 2/3: Teknik Salam 3S
+          </button>
+          <button onclick="switchTab2Slide(2)" id="subnav-mat-2" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-extrabold transition-all border-2 bg-slate-50 text-slate-700 border-slate-200 hover:border-blue-800 hover:bg-blue-50">
+            Materi 3/3: Metode L-A-S-T
+          </button>
         </div>
 
-        <!-- BAGIAN B: TEKNIK SALAM 3S -->
-        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-3.5 flex flex-col justify-between min-h-0">
-          <div class="border-b border-slate-100 pb-2 mb-2 shrink-0">
-            <span class="text-[11px] font-extrabold uppercase tracking-wider text-indigo-800">Bagian B &bull; Etika Tatap Muka</span>
-            <h2 class="text-sm sm:text-base font-extrabold text-slate-900">
-              Teknik Salam 3S (Senyum, Salam, Sapa)
-            </h2>
-          </div>
-
-          <!-- 3 Tombol Langkah Berurutan -->
-          <div class="grid grid-cols-3 gap-1.5 shrink-0">
-            <button onclick="select3SStep(0)" id="btn-3s-0" class="py-2 px-1.5 rounded-xl border-2 font-extrabold text-xs transition-all flex flex-col items-center gap-0.5 bg-[#1E3A8A] text-white border-[#1E3A8A] shadow">
-              <span class="text-[10px] uppercase text-amber-300">Langkah 1</span>
-              <span>1. Senyum</span>
-            </button>
-            <button onclick="select3SStep(1)" id="btn-3s-1" class="py-2 px-1.5 rounded-xl border-2 font-extrabold text-xs transition-all flex flex-col items-center gap-0.5 bg-slate-50 text-slate-700 border-slate-200 hover:border-blue-800">
-              <span class="text-[10px] uppercase text-slate-500">Langkah 2</span>
-              <span>2. Salam</span>
-            </button>
-            <button onclick="select3SStep(2)" id="btn-3s-2" class="py-2 px-1.5 rounded-xl border-2 font-extrabold text-xs transition-all flex flex-col items-center gap-0.5 bg-slate-50 text-slate-700 border-slate-200 hover:border-blue-800">
-              <span class="text-[10px] uppercase text-slate-500">Langkah 3</span>
-              <span>3. Sapa</span>
-            </button>
-          </div>
-
-          <!-- Penjelasan Langkah Terpilih -->
-          <div class="my-2 p-3 rounded-xl bg-blue-50/80 border border-blue-200 text-xs sm:text-sm text-slate-800">
-            <p class="font-extrabold text-blue-950 mb-1" id="desc-3s-title">1. Senyum Tulus &amp; Ramah</p>
-            <p id="desc-3s-text" class="text-slate-700 leading-relaxed text-xs">
-              Menunjukkan keramahan, ketulusan, dan kesiapan melayani sejak detik pertama tamu tiba di meja front office.
-            </p>
-          </div>
-
-          <!-- Sorotan Kalimat Standar Resepsionis -->
-          <div class="bg-gradient-to-br from-[#1E3A8A] to-[#312E81] text-white rounded-xl p-3 border border-indigo-900 shadow-inner">
-            <div class="flex items-center justify-between mb-1">
-              <span class="text-[10px] font-extrabold uppercase tracking-wider text-amber-300">
-                Kalimat Standar Resepsionis
-              </span>
-              <span class="text-[10px] px-2 py-0.5 rounded bg-white/15 text-blue-100">Front Office</span>
-            </div>
-            <p class="text-xs sm:text-sm font-medium leading-relaxed text-blue-100">
-              &ldquo;<span id="quote-3s-0" class="px-1.5 py-0.5 rounded bg-amber-400 text-indigo-950 font-extrabold transition-all">(Tersenyum tulus &amp; kontak mata)</span>
-              <span id="quote-3s-1" class="transition-all">Selamat pagi, SMKS Pasundan 3 Bandung,</span>
-              <span id="quote-3s-2" class="transition-all">dengan Azkia. Ada yang bisa saya bantu, Bapak/Ibu?</span>&rdquo;
-            </p>
-          </div>
-        </div>
-
-        <!-- BAGIAN C: PENANGANAN KELUHAN METODE L-A-S-T -->
-        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-3.5 flex flex-col justify-between min-h-0">
-          <div class="border-b border-slate-100 pb-2 mb-2 shrink-0">
-            <span class="text-[11px] font-extrabold uppercase tracking-wider text-amber-600">Bagian C &bull; Manajemen Keluhan</span>
-            <h2 class="text-sm sm:text-base font-extrabold text-slate-900">
-              Penanganan Keluhan (Metode L-A-S-T)
-            </h2>
-          </div>
-
-          <!-- 4 Stepper Huruf L - A - S - T -->
-          <div class="grid grid-cols-4 gap-1.5 shrink-0">
-            <button onclick="selectLastStep(0)" id="btn-last-0" class="py-2 px-1 rounded-xl border-2 font-extrabold transition-all flex flex-col items-center bg-[#312E81] text-amber-300 border-[#312E81] shadow">
-              <span class="text-base leading-none">L</span>
-              <span class="text-[10px] font-semibold mt-0.5">Listen</span>
-            </button>
-            <button onclick="selectLastStep(1)" id="btn-last-1" class="py-2 px-1 rounded-xl border-2 font-extrabold transition-all flex flex-col items-center bg-slate-50 text-slate-700 border-slate-200 hover:border-amber-500">
-              <span class="text-base leading-none">A</span>
-              <span class="text-[10px] font-semibold mt-0.5">Apologize</span>
-            </button>
-            <button onclick="selectLastStep(2)" id="btn-last-2" class="py-2 px-1 rounded-xl border-2 font-extrabold transition-all flex flex-col items-center bg-slate-50 text-slate-700 border-slate-200 hover:border-amber-500">
-              <span class="text-base leading-none">S</span>
-              <span class="text-[10px] font-semibold mt-0.5">Solve</span>
-            </button>
-            <button onclick="selectLastStep(3)" id="btn-last-3" class="py-2 px-1 rounded-xl border-2 font-extrabold transition-all flex flex-col items-center bg-slate-50 text-slate-700 border-slate-200 hover:border-amber-500">
-              <span class="text-base leading-none">T</span>
-              <span class="text-[10px] font-semibold mt-0.5">Thank</span>
-            </button>
-          </div>
-
-          <!-- Konten Detail Tahapan LAST -->
-          <div class="flex-1 flex flex-col justify-between mt-2 bg-amber-50/70 border border-amber-200 rounded-xl p-3">
-            <div>
-              <div class="flex items-center justify-between mb-1">
-                <h3 id="last-step-title" class="text-xs sm:text-sm font-extrabold text-indigo-950">
-                  L &mdash; Listen (Dengarkan)
-                </h3>
-                <span id="last-step-counter" class="text-[10px] font-extrabold px-2 py-0.5 rounded bg-amber-400/40 text-amber-950">
-                  Tahap 1/4
-                </span>
-              </div>
-              <p id="last-step-desc" class="text-xs text-slate-700 leading-relaxed">
-                Dengarkan seluruh keluhan pelanggan dengan tenang, tanpa memotong pembicaraan, dan tanpa membela diri.
-              </p>
-            </div>
-
-            <div class="mt-2 pt-2 border-t border-amber-200/80">
-              <span class="text-[10px] font-extrabold uppercase tracking-wider text-amber-900 block mb-1">
-                Contoh Kalimat Praktis:
-              </span>
-              <p id="last-step-quote" class="text-xs font-semibold text-slate-900 bg-white p-2 rounded-lg border border-amber-200 italic">
-                &ldquo;Baik, Bapak/Ibu, silakan ceritakan kendala yang dialami. Saya dengarkan dengan baik.&rdquo;
-              </p>
-            </div>
-          </div>
-        </div>
-
+        <!-- Tombol Berikutnya -->
+        <button onclick="nextTab2Slide()" id="btn-sub-next" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-[#1E3A8A] bg-blue-50 hover:bg-blue-100 text-[#1E3A8A] text-xs sm:text-sm font-extrabold transition">
+          <span>Berikutnya &rarr;</span>
+        </button>
       </div>
+
+      <!-- ================================================================= -->
+      <!-- TAMPILAN 2.1 — KONSEP 3A PELAYANAN PRIMA (LAYAR PENUH TUNGGAL)    -->
+      <!-- ================================================================= -->
+      <div id="mat-slide-0" class="tab-panel flex-1 flex flex-col justify-between gap-4">
+        <!-- Banner Definisi Ringkas Pelayanan Prima -->
+        <div class="bg-gradient-to-r from-[#1E3A8A] to-[#312E81] text-white rounded-2xl px-5 py-4 shadow-sm border border-indigo-900 flex items-center gap-4">
+          <div class="w-12 h-12 rounded-2xl bg-amber-400 text-indigo-950 flex items-center justify-center shrink-0 shadow">
+            <i data-lucide="award" class="w-7 h-7"></i>
+          </div>
+          <div>
+            <span class="text-[11px] font-extrabold uppercase tracking-wider text-amber-300 block">
+              Definisi Pelayanan Prima (Excellent Service)
+            </span>
+            <p class="text-sm sm:text-base lg:text-lg font-semibold text-white leading-snug mt-0.5">
+              Pelayanan terbaik yang memenuhi atau melampaui harapan pelanggan sehingga tamu merasa <strong>dihargai, dibantu, dan percaya</strong> pada instansi.
+            </p>
+          </div>
+        </div>
+
+        <!-- 3 Kartu Kolom Besar dan Lega -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 flex-1">
+          <!-- KARTU 1: ATTITUDE (Sikap) -->
+          <div onclick="focus3ACard(0)" id="card-3a-0" role="button" tabindex="0" class="cursor-pointer rounded-2xl bg-white border-2 border-amber-500 ring-4 ring-amber-100 p-5 flex flex-col justify-between shadow-md transition-all">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <span class="px-3 py-1 rounded-lg bg-[#1E3A8A] text-amber-300 font-extrabold text-xs uppercase tracking-wider">
+                  Unsur 1 &bull; 3A
+                </span>
+                <div class="w-11 h-11 rounded-xl bg-blue-50 text-[#1E3A8A] flex items-center justify-center">
+                  <i data-lucide="smile" class="w-6 h-6"></i>
+                </div>
+              </div>
+              <h2 class="text-xl lg:text-2xl font-extrabold text-slate-900">
+                ATTITUDE <span class="block text-sm font-bold text-blue-900 mt-0.5">(Sikap Positif &amp; Sopan)</span>
+              </h2>
+              <p class="text-sm sm:text-base text-slate-700 leading-relaxed mt-3">
+                Perilaku positif, ramah, sopan, berpenampilan rapi, sabar, dan tidak memotong pembicaraan saat melayani setiap tamu kantor.
+              </p>
+            </div>
+
+            <div id="detail-3a-0" class="mt-4 pt-3 border-t border-amber-200 bg-amber-50/90 rounded-xl p-3.5 transition-all">
+              <span class="text-[11px] font-extrabold uppercase tracking-wider text-amber-900 block mb-1">
+                Contoh Praktik Kantor:
+              </span>
+              <p class="text-xs sm:text-sm font-semibold text-slate-900 leading-snug">
+                Tersenyum tulus, menjaga postur tubuh tegak &amp; rapi, menyapa tamu lebih dahulu, dan menjaga nada bicara tetap santun.
+              </p>
+            </div>
+          </div>
+
+          <!-- KARTU 2: ATTENTION (Perhatian) -->
+          <div onclick="focus3ACard(1)" id="card-3a-1" role="button" tabindex="0" class="cursor-pointer rounded-2xl bg-white border-2 border-slate-200 hover:border-blue-800 p-5 flex flex-col justify-between shadow-sm transition-all">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <span class="px-3 py-1 rounded-lg bg-[#312E81] text-amber-300 font-extrabold text-xs uppercase tracking-wider">
+                  Unsur 2 &bull; 3A
+                </span>
+                <div class="w-11 h-11 rounded-xl bg-indigo-50 text-[#312E81] flex items-center justify-center">
+                  <i data-lucide="ear" class="w-6 h-6"></i>
+                </div>
+              </div>
+              <h2 class="text-xl lg:text-2xl font-extrabold text-slate-900">
+                ATTENTION <span class="block text-sm font-bold text-indigo-900 mt-0.5">(Perhatian Penuh)</span>
+              </h2>
+              <p class="text-sm sm:text-base text-slate-700 leading-relaxed mt-3">
+                Kepedulian penuh, mendengarkan secara aktif, mencatat hal penting, dan memahami kebutuhan tamu tanpa distraksi.
+              </p>
+            </div>
+
+            <div id="detail-3a-1" class="mt-4 pt-3 border-t border-slate-100 bg-slate-50 rounded-xl p-3.5 transition-all">
+              <span class="text-[11px] font-extrabold uppercase tracking-wider text-slate-600 block mb-1">
+                Contoh Praktik Kantor:
+              </span>
+              <p class="text-xs sm:text-sm font-semibold text-slate-700 leading-snug">
+                Meletakkan gawai/pekerjaan lain saat tamu datang, menjaga kontak mata, dan mencatat maksud kedatangan dengan cermat.
+              </p>
+            </div>
+          </div>
+
+          <!-- KARTU 3: ACTION (Tindakan) -->
+          <div onclick="focus3ACard(2)" id="card-3a-2" role="button" tabindex="0" class="cursor-pointer rounded-2xl bg-white border-2 border-slate-200 hover:border-blue-800 p-5 flex flex-col justify-between shadow-sm transition-all">
+            <div>
+              <div class="flex items-center justify-between mb-3">
+                <span class="px-3 py-1 rounded-lg bg-[#1E3A8A] text-amber-300 font-extrabold text-xs uppercase tracking-wider">
+                  Unsur 3 &bull; 3A
+                </span>
+                <div class="w-11 h-11 rounded-xl bg-blue-50 text-[#1E3A8A] flex items-center justify-center">
+                  <i data-lucide="zap" class="w-6 h-6"></i>
+                </div>
+              </div>
+              <h2 class="text-xl lg:text-2xl font-extrabold text-slate-900">
+                ACTION <span class="block text-sm font-bold text-blue-900 mt-0.5">(Tindakan Nyata)</span>
+              </h2>
+              <p class="text-sm sm:text-base text-slate-700 leading-relaxed mt-3">
+                Respon cepat, membantu mengisi formulir, mengantar tamu ke ruangan tujuan, atau menindaklanjuti keluhan hingga tuntas.
+              </p>
+            </div>
+
+            <div id="detail-3a-2" class="mt-4 pt-3 border-t border-slate-100 bg-slate-50 rounded-xl p-3.5 transition-all">
+              <span class="text-[11px] font-extrabold uppercase tracking-wider text-slate-600 block mb-1">
+                Contoh Praktik Kantor:
+              </span>
+              <p class="text-xs sm:text-sm font-semibold text-slate-700 leading-snug">
+                Segera menghubungi sekretaris pimpinan untuk konfirmasi janji temu dan mengarahkan tamu ke ruang tunggu yang nyaman.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bar Aksi Bawah Slide 2.1 -->
+        <div class="flex flex-wrap items-center justify-between gap-2 pt-1">
+          <span class="text-xs sm:text-sm font-semibold text-slate-500">
+            Klik salah satu kartu 3A untuk menyorot contoh praktik kantor.
+          </span>
+          <button onclick="switchTab2Slide(1)" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#1E3A8A] hover:bg-blue-800 text-amber-300 font-extrabold text-sm shadow-md transition active:scale-95">
+            <span>Lanjut ke Materi 2: Salam 3S &rarr;</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ================================================================= -->
+      <!-- TAMPILAN 2.2 — TEKNIK SALAM 3S (LAYAR PENUH TUNGGAL)              -->
+      <!-- ================================================================= -->
+      <div id="mat-slide-1" class="tab-panel hidden flex-1 flex flex-col justify-between gap-4">
+        <!-- Header & Tombol Peragakan Semua -->
+        <div class="bg-white rounded-2xl border border-slate-200 px-5 py-3.5 shadow-sm flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <span class="text-xs font-extrabold uppercase tracking-wider text-indigo-800">Etika Interaksi Tatap Muka Front Office</span>
+            <h2 class="text-lg sm:text-xl font-extrabold text-slate-900">
+              Teknik Salam 3S (Senyum &bull; Salam &bull; Sapa)
+            </h2>
+          </div>
+          <button onclick="playAll3SSteps()" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-indigo-950 font-extrabold text-xs sm:text-sm shadow transition active:scale-95">
+            <i data-lucide="sparkles" class="w-4 h-4"></i>
+            <span>Peragakan Semua</span>
+          </button>
+        </div>
+
+        <!-- 3 Tahapan Interaktif Besar (Klik Berurutan) -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <!-- Tahap 1: SENYUM -->
+          <button onclick="select3SStep(0)" id="btn-3s-0" class="text-left p-5 rounded-2xl border-2 transition-all bg-[#1E3A8A] text-white border-[#1E3A8A] shadow-md">
+            <div class="flex items-center justify-between mb-2">
+              <span class="px-2.5 py-0.5 rounded-lg bg-amber-400 text-indigo-950 text-xs font-extrabold uppercase">Tahap 1</span>
+              <i data-lucide="smile" class="w-6 h-6 text-amber-300"></i>
+            </div>
+            <h3 class="text-xl font-extrabold">1. SENYUM</h3>
+            <p class="text-xs sm:text-sm text-blue-100 mt-1.5 leading-relaxed">
+              Berdiri tegak dengan kontak mata hangat dan senyum tulus sejak detik pertama tamu datang.
+            </p>
+          </button>
+
+          <!-- Tahap 2: SALAM -->
+          <button onclick="select3SStep(1)" id="btn-3s-1" class="text-left p-5 rounded-2xl border-2 transition-all bg-white text-slate-800 border-slate-200 hover:border-blue-800 shadow-sm">
+            <div class="flex items-center justify-between mb-2">
+              <span class="px-2.5 py-0.5 rounded-lg bg-slate-200 text-slate-700 text-xs font-extrabold uppercase">Tahap 2</span>
+              <i data-lucide="hand-metal" class="w-6 h-6 text-blue-900"></i>
+            </div>
+            <h3 class="text-xl font-extrabold">2. SALAM</h3>
+            <p class="text-xs sm:text-sm text-slate-600 mt-1.5 leading-relaxed">
+              Mengucapkan salam sesuai waktu secara sopan diikuti penyebutan nama instansi dengan jelas.
+            </p>
+          </button>
+
+          <!-- Tahap 3: SAPA -->
+          <button onclick="select3SStep(2)" id="btn-3s-2" class="text-left p-5 rounded-2xl border-2 transition-all bg-white text-slate-800 border-slate-200 hover:border-blue-800 shadow-sm">
+            <div class="flex items-center justify-between mb-2">
+              <span class="px-2.5 py-0.5 rounded-lg bg-slate-200 text-slate-700 text-xs font-extrabold uppercase">Tahap 3</span>
+              <i data-lucide="message-circle" class="w-6 h-6 text-blue-900"></i>
+            </div>
+            <h3 class="text-xl font-extrabold">3. SAPA</h3>
+            <p class="text-xs sm:text-sm text-slate-600 mt-1.5 leading-relaxed">
+              Menyebut nama petugas, sapaan hormat Bapak/Ibu, serta menanyakan kebutuhan secara proaktif.
+            </p>
+          </button>
+        </div>
+
+        <!-- Kotak Dialog Praktik Front Office Berukuran Besar -->
+        <div class="bg-gradient-to-br from-[#1E3A8A] via-[#263582] to-[#312E81] text-white rounded-2xl p-5 lg:p-6 shadow-md border-2 border-indigo-900 flex-1 flex flex-col justify-center">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-xs font-extrabold uppercase tracking-wider text-amber-300">
+              Kotak Dialog Praktik Front Office (Menyala Bertahap)
+            </span>
+            <span class="text-xs px-2.5 py-1 rounded-lg bg-white/10 text-blue-100 font-semibold">
+              Standar Resepsionis SMKS Pasundan 3 Bandung
+            </span>
+          </div>
+
+          <div class="space-y-2.5 text-base sm:text-lg lg:text-xl leading-relaxed">
+            <div id="dialog-line-0" class="p-3 rounded-xl bg-amber-400 text-indigo-950 font-extrabold transition-all shadow">
+              <span class="text-xs uppercase tracking-wider px-2 py-0.5 rounded bg-indigo-950 text-amber-300 mr-2">1. Senyum</span>
+              [Gestur: Postur tegak, kontak mata hangat, tersenyum tulus menyambut tamu]
+            </div>
+
+            <div id="dialog-line-1" class="p-3 rounded-xl bg-white/10 text-blue-200/70 font-semibold transition-all">
+              <span class="text-xs uppercase tracking-wider px-2 py-0.5 rounded bg-white/15 text-blue-200 mr-2">2. Salam</span>
+              &ldquo;Selamat pagi, SMKS Pasundan 3 Bandung, dengan Azkia.&rdquo;
+            </div>
+
+            <div id="dialog-line-2" class="p-3 rounded-xl bg-white/10 text-blue-200/70 font-semibold transition-all">
+              <span class="text-xs uppercase tracking-wider px-2 py-0.5 rounded bg-white/15 text-blue-200 mr-2">3. Sapa</span>
+              &ldquo;Ada yang bisa saya bantu, Bapak/Ibu?&rdquo;
+            </div>
+          </div>
+        </div>
+
+        <!-- Bar Aksi Bawah Slide 2.2 -->
+        <div class="flex flex-wrap items-center justify-between gap-2 pt-1">
+          <span class="text-xs sm:text-sm font-semibold text-slate-500">
+            Klik Tahap 1, 2, 3 secara berurutan atau tekan &ldquo;Peragakan Semua&rdquo;.
+          </span>
+          <button onclick="switchTab2Slide(2)" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#1E3A8A] hover:bg-blue-800 text-amber-300 font-extrabold text-sm shadow-md transition active:scale-95">
+            <span>Lanjut ke Materi 3: Metode LAST &rarr;</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ================================================================= -->
+      <!-- TAMPILAN 2.3 — METODE L-A-S-T (LAYAR PENUH TUNGGAL)               -->
+      <!-- ================================================================= -->
+      <div id="mat-slide-2" class="tab-panel hidden flex-1 flex flex-col justify-between gap-4">
+        <!-- 4 Tombol Huruf Raksasa Interaktif di Bagian Atas -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <button onclick="selectLastStep(0)" id="btn-last-0" class="py-3.5 px-4 rounded-2xl border-2 transition-all flex items-center justify-center gap-3 bg-[#312E81] text-amber-300 border-[#312E81] shadow-md">
+            <span class="text-2xl sm:text-3xl font-black leading-none">L</span>
+            <div class="text-left">
+              <span class="block text-sm sm:text-base font-extrabold leading-tight">Listen</span>
+              <span class="block text-[11px] opacity-85">Dengarkan</span>
+            </div>
+          </button>
+
+          <button onclick="selectLastStep(1)" id="btn-last-1" class="py-3.5 px-4 rounded-2xl border-2 transition-all flex items-center justify-center gap-3 bg-white text-slate-800 border-slate-200 hover:border-amber-500 shadow-sm">
+            <span class="text-2xl sm:text-3xl font-black leading-none text-[#1E3A8A]">A</span>
+            <div class="text-left">
+              <span class="block text-sm sm:text-base font-extrabold leading-tight">Apologize</span>
+              <span class="block text-[11px] text-slate-500">Minta Maaf</span>
+            </div>
+          </button>
+
+          <button onclick="selectLastStep(2)" id="btn-last-2" class="py-3.5 px-4 rounded-2xl border-2 transition-all flex items-center justify-center gap-3 bg-white text-slate-800 border-slate-200 hover:border-amber-500 shadow-sm">
+            <span class="text-2xl sm:text-3xl font-black leading-none text-[#1E3A8A]">S</span>
+            <div class="text-left">
+              <span class="block text-sm sm:text-base font-extrabold leading-tight">Solve</span>
+              <span class="block text-[11px] text-slate-500">Beri Solusi</span>
+            </div>
+          </button>
+
+          <button onclick="selectLastStep(3)" id="btn-last-3" class="py-3.5 px-4 rounded-2xl border-2 transition-all flex items-center justify-center gap-3 bg-white text-slate-800 border-slate-200 hover:border-amber-500 shadow-sm">
+            <span class="text-2xl sm:text-3xl font-black leading-none text-[#1E3A8A]">T</span>
+            <div class="text-left">
+              <span class="block text-sm sm:text-base font-extrabold leading-tight">Thank</span>
+              <span class="block text-[11px] text-slate-500">Terima Kasih</span>
+            </div>
+          </button>
+        </div>
+
+        <!-- SATU Kartu Fokus Berukuran Besar di Tengah -->
+        <div class="bg-white rounded-2xl border-2 border-[#1E3A8A]/20 shadow-md p-5 lg:p-7 flex-1 flex flex-col justify-between">
+          <div>
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+              <span id="last-step-badge" class="px-3 py-1 rounded-full bg-amber-100 text-amber-950 border border-amber-300 text-xs font-extrabold uppercase tracking-wider">
+                Penanganan Keluhan Pelanggan &bull; Tahap 1 dari 4
+              </span>
+              <span class="text-xs font-bold text-slate-500">Formula L-A-S-T</span>
+            </div>
+
+            <h2 id="last-step-title" class="text-2xl sm:text-3xl font-extrabold text-[#1E3A8A]">
+              L &mdash; Listen (Dengarkan dengan Empati)
+            </h2>
+
+            <p id="last-step-desc" class="text-base sm:text-lg text-slate-700 leading-relaxed mt-3">
+              Dengarkan seluruh keluhan pelanggan dengan tenang, penuh perhatian, tanpa memotong pembicaraan, dan tanpa membela diri.
+            </p>
+          </div>
+
+          <!-- Kotak Kutipan Contoh Kalimat Praktis Resepsionis -->
+          <div class="my-4 p-4 lg:p-5 rounded-2xl bg-blue-50/80 border-l-4 border-[#1E3A8A]">
+            <span class="text-xs font-extrabold uppercase tracking-wider text-blue-900 block mb-1.5">
+              Contoh Kalimat Praktis Resepsionis:
+            </span>
+            <p id="last-step-quote" class="text-base sm:text-lg lg:text-xl font-bold text-slate-900 italic">
+              &ldquo;Baik, Bapak/Ibu, silakan ceritakan kendala yang dialami. Saya dengarkan dengan baik.&rdquo;
+            </p>
+          </div>
+
+          <!-- Tips Kunci / Hal yang Harus Dihindari -->
+          <div class="p-3.5 rounded-xl bg-amber-50 border border-amber-300 flex items-start gap-2.5">
+            <i data-lucide="alert-circle" class="w-5 h-5 text-amber-700 shrink-0 mt-0.5"></i>
+            <p id="last-step-tipbox" class="text-xs sm:text-sm font-semibold text-amber-950">
+              <strong>Tips Kunci &amp; Hindari:</strong> Jangan memotong pembicaraan atau membela diri saat pelanggan emosi, karena memicu kemarahan semakin tinggi dan terkesan tidak menghargai tamu.
+            </p>
+          </div>
+        </div>
+
+        <!-- Bar Aksi Bawah Slide 2.3 -->
+        <div class="flex flex-wrap items-center justify-between gap-2 pt-1">
+          <span class="text-xs sm:text-sm font-semibold text-slate-500">
+            Klik huruf L, A, S, atau T di atas untuk membedah tiap langkah penanganan keluhan.
+          </span>
+          <button onclick="switchTab(3)" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-indigo-950 font-extrabold text-sm shadow-md transition active:scale-95">
+            <span>Lanjut ke Simulasi Front Office (Tab 3) &rarr;</span>
+          </button>
+        </div>
+      </div>
+
     </section>
 
     <!-- =================================================================== -->
     <!-- TAB 3: SIMULASI & CHECKLIST INSTRUKSI KERJA (IK) FRONT OFFICE       -->
     <!-- =================================================================== -->
-    <section id="tab-3" class="tab-panel hidden flex-1 min-h-0 flex flex-col justify-between gap-3 lg:pr-44">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-3 flex-1 min-h-0">
+    <section id="tab-3" class="tab-panel hidden flex-1 flex flex-col justify-between gap-4 lg:pr-44">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 flex-1">
 
-        <!-- PANEL KIRI (5 KOLOM): SKENARIO ROLEPLAY & PILIH PERAN + TIMER 90 DETIK -->
-        <div class="lg:col-span-5 bg-white rounded-2xl border border-slate-200 shadow-sm p-3.5 flex flex-col justify-between min-h-0">
-          <div class="space-y-2.5 overflow-y-auto">
-            <div class="flex flex-wrap items-center justify-between gap-1.5">
-              <span class="px-2.5 py-1 rounded-lg bg-[#1E3A8A] text-amber-300 text-[11px] font-extrabold uppercase tracking-wide">
+        <!-- PANEL KIRI (5 KOLOM): SKENARIO ROLEPLAY & PANDUAN RESPON IDEAL -->
+        <div class="lg:col-span-5 bg-white rounded-2xl border border-slate-200 shadow-sm p-4 lg:p-5 flex flex-col justify-between gap-3">
+          <div class="space-y-3">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <span class="px-3 py-1 rounded-xl bg-[#1E3A8A] text-amber-300 text-xs font-extrabold uppercase tracking-wide">
                 Skenario Roleplay Microteaching
               </span>
               <!-- Timer Roleplay 90 Detik -->
               <div class="flex items-center gap-1.5 bg-amber-50 border border-amber-300 px-2.5 py-1 rounded-xl">
-                <span class="text-[11px] font-bold text-amber-950">Roleplay:</span>
+                <span class="text-xs font-bold text-amber-950">Roleplay:</span>
                 <span id="rp-timer-display" class="font-mono text-xs font-extrabold text-blue-950">01:30</span>
-                <button onclick="toggleRoleplayTimer()" id="btn-rp-timer" class="px-2 py-0.5 rounded bg-amber-500 hover:bg-amber-400 text-indigo-950 text-[10px] font-extrabold transition">
+                <button onclick="toggleRoleplayTimer()" id="btn-rp-timer" class="px-2 py-0.5 rounded bg-amber-500 hover:bg-amber-400 text-indigo-950 text-[11px] font-extrabold transition">
                   Mulai
                 </button>
-                <button onclick="resetRoleplayTimer()" class="px-1.5 py-0.5 rounded bg-white hover:bg-amber-100 text-slate-700 border border-amber-300 text-[10px] font-bold transition">
+                <button onclick="resetRoleplayTimer()" class="px-1.5 py-0.5 rounded bg-white hover:bg-amber-100 text-slate-700 border border-amber-300 text-[11px] font-bold transition">
                   Reset
                 </button>
               </div>
             </div>
 
-            <!-- Kartu Studi Kasus dari PPTX -->
-            <div class="bg-blue-50/70 border-2 border-blue-200 rounded-xl p-3">
-              <span class="text-[10px] font-extrabold uppercase tracking-wider text-blue-900 block mb-1">
+            <!-- Kartu Situasi Tamu -->
+            <div class="bg-blue-50/80 border-2 border-blue-200 rounded-xl p-4">
+              <span class="text-[11px] font-extrabold uppercase tracking-wider text-blue-900 block mb-1">
                 Situasi Studi Kasus Front Office:
               </span>
-              <p class="text-xs sm:text-sm font-extrabold text-slate-900 leading-snug">
+              <p class="text-sm sm:text-base font-extrabold text-slate-900 leading-snug">
                 &ldquo;Seorang tamu datang dalam keadaan terburu-buru ingin bertemu Pimpinan Perusahaan tanpa membuat janji temu terlebih dahulu.&rdquo;
               </p>
             </div>
 
-            <!-- Fitur Interaktif: Pilih / Acak Peran Roleplay -->
-            <div class="bg-slate-50 border border-slate-200 rounded-xl p-2.5">
-              <div class="flex items-center justify-between gap-2 mb-1.5">
-                <span class="text-[11px] font-extrabold text-slate-800">Penugasan Peran Siswa:</span>
-                <button onclick="shuffleRoleplayAssignment()" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#312E81] hover:bg-indigo-800 text-amber-300 text-[11px] font-bold transition active:scale-95">
-                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                  </svg>
-                  Pilih Peran Roleplay
+            <!-- Penugasan Peran Roleplay -->
+            <div class="bg-slate-50 border border-slate-200 rounded-xl p-3">
+              <div class="flex items-center justify-between gap-2 mb-2">
+                <span class="text-xs font-extrabold text-slate-800">Penugasan Peran Siswa:</span>
+                <button onclick="shuffleRoleplayAssignment()" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#312E81] hover:bg-indigo-800 text-amber-300 text-xs font-bold transition active:scale-95">
+                  <i data-lucide="shuffle" class="w-3.5 h-3.5"></i>
+                  <span>Acak Peran</span>
                 </button>
               </div>
               <div class="grid grid-cols-2 gap-2 text-xs">
-                <div class="bg-white p-2 rounded-lg border border-blue-200">
-                  <span class="text-[10px] font-bold text-blue-800 block">Petugas Front Office</span>
+                <div class="bg-white p-2.5 rounded-lg border border-blue-200">
+                  <span class="text-[11px] font-bold text-blue-800 block">Petugas Front Office</span>
                   <strong id="role-receptionist" class="text-slate-900 font-extrabold">Siswa A (Resepsionis)</strong>
                 </div>
-                <div class="bg-white p-2 rounded-lg border border-amber-200">
-                  <span class="text-[10px] font-bold text-amber-800 block">Tamu Kantor</span>
+                <div class="bg-white p-2.5 rounded-lg border border-amber-200">
+                  <span class="text-[11px] font-bold text-amber-800 block">Tamu Kantor</span>
                   <strong id="role-guest" class="text-slate-900 font-extrabold">Siswa B (Tamu Urgent)</strong>
                 </div>
               </div>
@@ -705,18 +861,16 @@
 
             <!-- Panduan Respon Resepsionis Ideal -->
             <div>
-              <button onclick="toggleIdealResponse()" class="w-full flex items-center justify-between px-3 py-2 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-950 border border-amber-300 text-xs font-extrabold transition">
+              <button onclick="toggleIdealResponse()" class="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-950 border border-amber-300 text-xs sm:text-sm font-extrabold transition">
                 <span>Panduan Respon Resepsionis Ideal (3 Poin)</span>
-                <svg id="chevron-ideal" class="w-4 h-4 rotate-180 transition-transform" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-                </svg>
+                <i id="chevron-ideal" data-lucide="chevron-down" class="w-4 h-4 rotate-180 transition-transform"></i>
               </button>
 
-              <div id="ideal-response-box" class="mt-1.5 p-2.5 rounded-xl bg-indigo-50/70 border border-indigo-200 text-xs text-slate-800">
-                <ul class="list-disc pl-4 space-y-1 text-slate-700">
+              <div id="ideal-response-box" class="mt-2 p-3 rounded-xl bg-indigo-50/70 border border-indigo-200 text-xs sm:text-sm text-slate-800">
+                <ul class="list-disc pl-4 space-y-1.5 text-slate-700">
                   <li><strong>1. Gunakan Salam 3S:</strong> Sambut ramah dan tetap tenang.</li>
                   <li><strong>2. Terapkan Empati:</strong> Pahami urgensi tamu secara santun.</li>
-                  <li><strong>3. Tawaran Solusi:</strong> Cek jadwal pimpinan atau fasilitasi penjadwalan janji temu berikutnya.</li>
+                  <li><strong>3. Tawaran Solusi:</strong> Cek jadwal pimpinan atau fasilitasi janji temu berikutnya.</li>
                 </ul>
               </div>
             </div>
@@ -724,18 +878,18 @@
         </div>
 
         <!-- PANEL KANAN (7 KOLOM): CHECKLIST INTERAKTIF 4 LANGKAH IK + BINTANG APRESIASI -->
-        <div class="lg:col-span-7 bg-white rounded-2xl border border-slate-200 shadow-sm p-3.5 flex flex-col justify-between min-h-0">
+        <div class="lg:col-span-7 bg-white rounded-2xl border border-slate-200 shadow-sm p-4 lg:p-5 flex flex-col justify-between gap-4">
           <div>
-            <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
               <div>
-                <span class="text-[11px] font-extrabold uppercase tracking-wider text-blue-900">Standar Operasional Prosedur (6 Langkah Terpadu)</span>
-                <h2 class="text-sm sm:text-base font-extrabold text-slate-900">
+                <span class="text-xs font-extrabold uppercase tracking-wider text-blue-900">Observasi Praktik Langsung</span>
+                <h2 class="text-base sm:text-lg font-extrabold text-slate-900">
                   Checklist Instruksi Kerja (IK) Penerimaan Tamu Front Office
                 </h2>
               </div>
 
               <div class="flex items-center gap-2">
-                <span id="ik-progress-badge" class="px-2.5 py-1 rounded-full bg-blue-50 text-blue-950 text-xs font-extrabold border border-blue-200">
+                <span id="ik-progress-badge" class="px-3 py-1 rounded-full bg-blue-50 text-blue-950 text-xs font-extrabold border border-blue-200">
                   0 / 4 Langkah (0%)
                 </span>
                 <button onclick="resetIkChecklist()" title="Reset Checklist" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition">
@@ -745,76 +899,76 @@
             </div>
 
             <!-- Progress Bar 0% - 100% -->
-            <div class="w-full h-2.5 bg-slate-100 rounded-full overflow-hidden mb-2.5 border border-slate-200/60">
+            <div class="w-full h-3 bg-slate-100 rounded-full overflow-hidden mb-4 border border-slate-200/60">
               <div id="ik-progress-bar" class="h-full bg-gradient-to-r from-[#1E3A8A] via-[#312E81] to-amber-500 transition-all duration-300" style="width: 0%"></div>
             </div>
 
             <!-- 4 Kartu Checklist Besar Interaktif -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <!-- IK 1 -->
-              <div onclick="toggleIkItem(0)" id="ik-item-0" role="checkbox" aria-checked="false" tabindex="0" class="cursor-pointer rounded-xl border-2 border-slate-200 hover:border-blue-800 bg-slate-50/70 p-2.5 flex items-start gap-2.5 transition-all">
+              <div onclick="toggleIkItem(0)" id="ik-item-0" role="checkbox" aria-checked="false" tabindex="0" class="cursor-pointer rounded-xl border-2 border-slate-200 hover:border-blue-800 bg-slate-50/70 p-3.5 flex items-start gap-3 transition-all">
                 <div id="ik-check-0" class="w-6 h-6 rounded-lg border-2 border-slate-300 bg-white flex items-center justify-center shrink-0 mt-0.5 transition-colors">
                   <svg class="w-4 h-4 text-white hidden" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
                 <div>
-                  <span class="text-[10px] font-extrabold text-blue-900 uppercase">Langkah 1</span>
-                  <h3 class="font-extrabold text-xs sm:text-sm text-slate-900">Sambut Tamu (Salam 3S)</h3>
-                  <p class="text-[11px] text-slate-600 mt-0.5 leading-snug">Berdiri ramah, berikan senyum tulus, ucapkan salam dan sapa sopan.</p>
+                  <span class="text-[11px] font-extrabold text-blue-900 uppercase">Langkah 1</span>
+                  <h3 class="font-extrabold text-sm sm:text-base text-slate-900">Sambut Tamu</h3>
+                  <p class="text-xs sm:text-sm text-slate-600 mt-1 leading-snug">Berdiri ramah, berikan senyum dan Salam 3S.</p>
                 </div>
               </div>
 
               <!-- IK 2 -->
-              <div onclick="toggleIkItem(1)" id="ik-item-1" role="checkbox" aria-checked="false" tabindex="0" class="cursor-pointer rounded-xl border-2 border-slate-200 hover:border-blue-800 bg-slate-50/70 p-2.5 flex items-start gap-2.5 transition-all">
+              <div onclick="toggleIkItem(1)" id="ik-item-1" role="checkbox" aria-checked="false" tabindex="0" class="cursor-pointer rounded-xl border-2 border-slate-200 hover:border-blue-800 bg-slate-50/70 p-3.5 flex items-start gap-3 transition-all">
                 <div id="ik-check-1" class="w-6 h-6 rounded-lg border-2 border-slate-300 bg-white flex items-center justify-center shrink-0 mt-0.5 transition-colors">
                   <svg class="w-4 h-4 text-white hidden" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
                 <div>
-                  <span class="text-[10px] font-extrabold text-blue-900 uppercase">Langkah 2</span>
-                  <h3 class="font-extrabold text-xs sm:text-sm text-slate-900">Identitas &amp; Pengisian Buku Tamu</h3>
-                  <p class="text-[11px] text-slate-600 mt-0.5 leading-snug">Tanyakan nama lengkap, asal instansi, serta keperluan; persilakan duduk sopan &amp; catat di Buku Tamu Kantor.</p>
+                  <span class="text-[11px] font-extrabold text-blue-900 uppercase">Langkah 2</span>
+                  <h3 class="font-extrabold text-sm sm:text-base text-slate-900">Pengisian Buku Tamu</h3>
+                  <p class="text-xs sm:text-sm text-slate-600 mt-1 leading-snug">Minta tamu mengisi identitas dan maksud kedatangan.</p>
                 </div>
               </div>
 
               <!-- IK 3 -->
-              <div onclick="toggleIkItem(2)" id="ik-item-2" role="checkbox" aria-checked="false" tabindex="0" class="cursor-pointer rounded-xl border-2 border-slate-200 hover:border-blue-800 bg-slate-50/70 p-2.5 flex items-start gap-2.5 transition-all">
+              <div onclick="toggleIkItem(2)" id="ik-item-2" role="checkbox" aria-checked="false" tabindex="0" class="cursor-pointer rounded-xl border-2 border-slate-200 hover:border-blue-800 bg-slate-50/70 p-3.5 flex items-start gap-3 transition-all">
                 <div id="ik-check-2" class="w-6 h-6 rounded-lg border-2 border-slate-300 bg-white flex items-center justify-center shrink-0 mt-0.5 transition-colors">
                   <svg class="w-4 h-4 text-white hidden" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
                 <div>
-                  <span class="text-[10px] font-extrabold text-blue-900 uppercase">Langkah 3</span>
-                  <h3 class="font-extrabold text-xs sm:text-sm text-slate-900">Konfirmasi Janji Temu</h3>
-                  <p class="text-[11px] text-slate-600 mt-0.5 leading-snug">Hubungi sekretaris atau pejabat/bagian yang dituju untuk mengonfirmasi ketersediaan penerimaan tamu.</p>
+                  <span class="text-[11px] font-extrabold text-blue-900 uppercase">Langkah 3</span>
+                  <h3 class="font-extrabold text-sm sm:text-base text-slate-900">Konfirmasi Janji Temu</h3>
+                  <p class="text-xs sm:text-sm text-slate-600 mt-1 leading-snug">Hubungi sekretaris/pejabat tujuan untuk konfirmasi.</p>
                 </div>
               </div>
 
               <!-- IK 4 -->
-              <div onclick="toggleIkItem(3)" id="ik-item-3" role="checkbox" aria-checked="false" tabindex="0" class="cursor-pointer rounded-xl border-2 border-slate-200 hover:border-blue-800 bg-slate-50/70 p-2.5 flex items-start gap-2.5 transition-all">
+              <div onclick="toggleIkItem(3)" id="ik-item-3" role="checkbox" aria-checked="false" tabindex="0" class="cursor-pointer rounded-xl border-2 border-slate-200 hover:border-blue-800 bg-slate-50/70 p-3.5 flex items-start gap-3 transition-all">
                 <div id="ik-check-3" class="w-6 h-6 rounded-lg border-2 border-slate-300 bg-white flex items-center justify-center shrink-0 mt-0.5 transition-colors">
                   <svg class="w-4 h-4 text-white hidden" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
                 <div>
-                  <span class="text-[10px] font-extrabold text-blue-900 uppercase">Langkah 4</span>
-                  <h3 class="font-extrabold text-xs sm:text-sm text-slate-900">Ruang Tunggu &amp; Penutup Layanan</h3>
-                  <p class="text-[11px] text-slate-600 mt-0.5 leading-snug">Antar ke ruangan/ruang tunggu atau sampaikan pesan sopan, lalu tutup layanan dengan terima kasih &amp; salam.</p>
+                  <span class="text-[11px] font-extrabold text-blue-900 uppercase">Langkah 4</span>
+                  <h3 class="font-extrabold text-sm sm:text-base text-slate-900">Pengarahan &amp; Ruang Tunggu</h3>
+                  <p class="text-xs sm:text-sm text-slate-600 mt-1 leading-snug">Persilakan tamu menunggu di ruang tunggu secara teratur.</p>
                 </div>
               </div>
             </div>
           </div>
 
           <!-- Tombol Penguatan Positif: Beri Apresiasi Bintang Layanan Prima -->
-          <div class="mt-2.5 pt-2.5 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-2">
-            <span class="text-xs font-semibold text-slate-600">
-              Penguatan positif setelah siswa selesai memperagakan simulasi:
+          <div class="pt-3 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <span class="text-xs sm:text-sm font-semibold text-slate-600">
+              Berikan penguatan positif setelah siswa selesai bersimulasi:
             </span>
-            <button onclick="triggerStarAward()" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-400 hover:from-amber-400 hover:to-yellow-300 text-indigo-950 font-extrabold text-xs sm:text-sm shadow-md hover:shadow-lg transition transform active:scale-95">
+            <button onclick="triggerStarAward()" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-400 hover:from-amber-400 hover:to-yellow-300 text-indigo-950 font-extrabold text-sm shadow-md hover:shadow-lg transition transform active:scale-95">
               <span>Beri Apresiasi Bintang Layanan Prima</span>
               <span class="text-base">⭐</span>
             </button>
@@ -827,9 +981,9 @@
     <!-- =================================================================== -->
     <!-- TAB 4: KUIS KILAT & REFLEKSI PENUTUP                                -->
     <!-- =================================================================== -->
-    <section id="tab-4" class="tab-panel hidden flex-1 min-h-0 flex flex-col justify-between gap-2.5 lg:pr-44">
+    <section id="tab-4" class="tab-panel hidden flex-1 flex flex-col justify-between gap-4 lg:pr-44">
       <!-- Bar Atas Kuis: Nomor Soal, Skor Live, & Timer 60 Detik -->
-      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm px-4 py-2 flex flex-wrap items-center justify-between gap-2 shrink-0">
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm px-4 py-2.5 flex flex-wrap items-center justify-between gap-2.5">
         <div class="flex items-center gap-2.5">
           <span id="quiz-step-badge" class="px-3 py-1 rounded-xl bg-[#1E3A8A] text-white font-extrabold text-xs">
             Soal 1 dari 4
@@ -837,50 +991,50 @@
           <span id="quiz-live-score" class="px-2.5 py-1 rounded-xl bg-amber-100 text-amber-950 font-extrabold text-xs border border-amber-300">
             Skor: 0 / 4
           </span>
-          <span class="text-xs font-semibold text-slate-600 hidden md:inline">
+          <span class="text-xs sm:text-sm font-semibold text-slate-600 hidden md:inline">
             Kuis Kilat Studi Kasus &bull; Angkat tangan untuk menjawab!
           </span>
         </div>
 
-        <!-- Timer Kuis 60 Detik -->
+        <!-- Timer Mini 60 Detik Opsional -->
         <div class="flex items-center gap-1.5 bg-indigo-50 border border-indigo-200 px-3 py-1 rounded-xl">
           <span class="text-xs font-bold text-indigo-950">Timer Kuis:</span>
           <span id="quiz-timer-display" class="font-mono text-sm font-extrabold text-blue-900">60d</span>
-          <button onclick="startQuizTimer()" id="btn-quiz-timer-start" class="px-2 py-0.5 rounded-lg bg-[#1E3A8A] hover:bg-blue-800 text-amber-300 text-xs font-bold transition">
+          <button onclick="startQuizTimer()" id="btn-quiz-timer-start" class="px-2.5 py-0.5 rounded-lg bg-[#1E3A8A] hover:bg-blue-800 text-amber-300 text-xs font-bold transition">
             Start
           </button>
-          <button onclick="resetQuizTimer()" class="px-2 py-0.5 rounded-lg bg-white hover:bg-indigo-100 text-indigo-900 border border-indigo-300 text-xs font-semibold transition">
+          <button onclick="resetQuizTimer()" class="px-2.5 py-0.5 rounded-lg bg-white hover:bg-indigo-100 text-indigo-900 border border-indigo-300 text-xs font-semibold transition">
             Reset
           </button>
         </div>
       </div>
 
-      <!-- Area Utama Kuis + Kartu Refleksi Penutup -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-3 flex-1 min-h-0">
+      <!-- Area Utama Kuis + Kartu Refleksi & Kesimpulan Penutup -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 flex-1">
 
         <!-- KIRI (8 KOLOM): SOAL PILIHAN GANDA & HASIL SKOR -->
-        <div class="lg:col-span-8 bg-white rounded-2xl border border-slate-200 shadow-sm p-3.5 lg:p-4 flex flex-col justify-between min-h-0">
+        <div class="lg:col-span-8 bg-white rounded-2xl border border-slate-200 shadow-sm p-4 lg:p-5 flex flex-col justify-between">
           <!-- Kontainer Pertanyaan -->
-          <div id="quiz-question-container" class="flex-1 flex flex-col justify-between min-h-0">
+          <div id="quiz-question-container" class="flex-1 flex flex-col justify-between">
             <div>
-              <span id="quiz-category" class="inline-block px-2.5 py-0.5 rounded-md bg-blue-50 text-blue-900 border border-blue-200 text-[11px] font-extrabold mb-1.5">
+              <span id="quiz-category" class="inline-block px-2.5 py-0.5 rounded-md bg-blue-50 text-blue-900 border border-blue-200 text-xs font-extrabold mb-2">
                 Metode Penanganan Keluhan LAST
               </span>
 
-              <h2 id="quiz-question-text" class="text-sm sm:text-base lg:text-lg font-extrabold text-slate-900 leading-snug mb-3">
+              <h2 id="quiz-question-text" class="text-base sm:text-lg lg:text-xl font-extrabold text-slate-900 leading-snug mb-4">
                 Memuat soal...
               </h2>
 
               <!-- 4 Opsi Jawaban -->
-              <div id="quiz-options-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <div id="quiz-options-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                 <!-- Diisi otomatis via JavaScript -->
               </div>
             </div>
 
             <!-- Umpan Balik Langsung & Tombol Lanjut -->
-            <div id="quiz-feedback-box" class="hidden mt-2.5 pt-2.5 border-t border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
-              <div id="quiz-feedback-alert" class="flex-1 rounded-xl p-2.5 border text-xs">
-                <p id="quiz-feedback-status" class="font-extrabold text-xs sm:text-sm mb-0.5"></p>
+            <div id="quiz-feedback-box" class="hidden mt-3 pt-3 border-t border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div id="quiz-feedback-alert" class="flex-1 rounded-xl p-3 border text-xs sm:text-sm">
+                <p id="quiz-feedback-status" class="font-extrabold text-sm mb-0.5"></p>
                 <p id="quiz-feedback-explanation" class="text-slate-700 leading-snug"></p>
               </div>
 
@@ -891,59 +1045,57 @@
           </div>
 
           <!-- Kontainer Skor Akhir Kuis -->
-          <div id="quiz-result-container" class="hidden flex-1 flex flex-col items-center justify-center text-center py-2">
-            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-400 to-amber-500 text-indigo-950 flex items-center justify-center shadow-md mb-2">
-              <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-              </svg>
+          <div id="quiz-result-container" class="hidden flex-1 flex flex-col items-center justify-center text-center py-4">
+            <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-400 to-amber-500 text-indigo-950 flex items-center justify-center shadow-md mb-3">
+              <i data-lucide="trophy" class="w-9 h-9"></i>
             </div>
-            <span class="text-[11px] font-extrabold uppercase tracking-wider text-blue-900">Evaluasi Kuis Kilat Selesai</span>
-            <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 mt-0.5">
+            <span class="text-xs font-extrabold uppercase tracking-wider text-blue-900">Evaluasi Kuis Kilat Selesai</span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1">
               Skor Akhir Kelas: <span id="quiz-final-score" class="text-amber-600">4 / 4</span>
             </h2>
-            <p id="quiz-final-message" class="text-xs sm:text-sm text-slate-600 max-w-lg mt-1">
+            <p id="quiz-final-message" class="text-sm text-slate-600 max-w-lg mt-1.5">
               Luar biasa! Seluruh konsep Pelayanan Prima telah dikuasai dengan sangat baik.
             </p>
-            <button onclick="restartQuiz()" class="mt-3 px-5 py-2 rounded-xl bg-[#1E3A8A] hover:bg-blue-800 text-amber-300 font-extrabold text-xs sm:text-sm shadow transition active:scale-95">
+            <button onclick="restartQuiz()" class="mt-4 px-5 py-2.5 rounded-xl bg-[#1E3A8A] hover:bg-blue-800 text-amber-300 font-extrabold text-sm shadow transition active:scale-95">
               Ulangi Kuis Kilat
             </button>
           </div>
         </div>
 
-        <!-- KANAN (4 KOLOM): KARTU REFLEKSI PENUTUP (2 MENIT AKHIR) & SINTESIS -->
-        <div class="lg:col-span-4 bg-gradient-to-b from-[#1E3A8A] to-[#312E81] text-white rounded-2xl border border-indigo-900 shadow-sm p-3.5 flex flex-col justify-between min-h-0">
+        <!-- KANAN (4 KOLOM): KARTU REFLEKSI & KESIMPULAN PENUTUP -->
+        <div class="lg:col-span-4 bg-gradient-to-b from-[#1E3A8A] to-[#312E81] text-white rounded-2xl border border-indigo-900 shadow-sm p-4 lg:p-5 flex flex-col justify-between gap-3">
           <div>
-            <span class="inline-block px-2.5 py-0.5 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/40 text-[10px] font-extrabold uppercase tracking-wider mb-1.5">
-              Refleksi Penutup (2 Menit Akhir)
+            <span class="inline-block px-2.5 py-0.5 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/40 text-[11px] font-extrabold uppercase tracking-wider mb-2">
+              Refleksi &amp; Kesimpulan Penutup
             </span>
-            <h3 class="text-sm sm:text-base font-extrabold text-white leading-snug">
+            <h3 class="text-base sm:text-lg font-extrabold text-white leading-snug">
               &ldquo;Apa langkah pertama kita saat menghadapi pelanggan yang emosi?&rdquo;
             </h3>
 
-            <button onclick="toggleReflectionKey()" id="btn-reflection-key" class="mt-2.5 w-full py-2 px-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-indigo-950 font-extrabold text-xs shadow transition active:scale-95">
-              Tampilkan Kunci Refleksi
+            <button onclick="toggleReflectionKey()" id="btn-reflection-key" class="mt-3 w-full py-2.5 px-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-indigo-950 font-extrabold text-xs sm:text-sm shadow transition active:scale-95">
+              Buka Jawaban Refleksi
             </button>
 
-            <div id="reflection-key-box" class="hidden mt-2 p-2.5 rounded-xl bg-white/15 border border-amber-300/50 text-xs text-white">
-              <span class="text-[10px] font-extrabold uppercase text-amber-300 block">Kunci Jawaban:</span>
-              <p class="font-bold mt-0.5">
-                Listen (Dengarkan dengan tenang tanpa memotong pembicaraan) agar pelanggan merasa dihargai dan emosinya mereda.
+            <div id="reflection-key-box" class="hidden mt-2.5 p-3 rounded-xl bg-white/15 border border-amber-300/60 text-xs sm:text-sm text-white">
+              <span class="text-[11px] font-extrabold uppercase text-amber-300 block">Jawaban Refleksi:</span>
+              <p class="font-bold mt-1 leading-snug">
+                Listen / Dengarkan dengan tenang tanpa memotong pembicaraan agar pelanggan merasa dihargai dan emosinya mereda.
               </p>
             </div>
           </div>
 
-          <!-- Ringkasan Sintesis 3A, 3S, dan LAST -->
-          <div class="mt-3 pt-2.5 border-t border-white/15 space-y-1.5">
-            <span class="text-[10px] font-extrabold uppercase tracking-wider text-amber-300 block">
-              Ringkasan Sintesis Materi:
+          <!-- Ringkasan Kesimpulan 3A, 3S, dan LAST -->
+          <div class="pt-3 border-t border-white/15 space-y-2">
+            <span class="text-[11px] font-extrabold uppercase tracking-wider text-amber-300 block">
+              Rangkuman Pelayanan Prima:
             </span>
-            <div class="bg-white/10 rounded-lg p-2 text-[11px] leading-snug">
+            <div class="bg-white/10 rounded-xl p-2.5 text-xs leading-snug">
               <strong class="text-amber-300">1. Unsur 3A:</strong> Attitude (Sikap), Attention (Perhatian), Action (Tindakan).
             </div>
-            <div class="bg-white/10 rounded-lg p-2 text-[11px] leading-snug">
+            <div class="bg-white/10 rounded-xl p-2.5 text-xs leading-snug">
               <strong class="text-amber-300">2. Salam 3S:</strong> Senyum tulus, Salam sopan, Sapa proaktif.
             </div>
-            <div class="bg-white/10 rounded-lg p-2 text-[11px] leading-snug">
+            <div class="bg-white/10 rounded-xl p-2.5 text-xs leading-snug">
               <strong class="text-amber-300">3. Metode LAST:</strong> Listen, Apologize, Solve, Thank.
             </div>
           </div>
@@ -1205,15 +1357,15 @@
         phaseEl.className = 'text-xs font-extrabold text-rose-300';
         timerEl.className = 'font-mono text-lg sm:text-xl font-extrabold tracking-wider text-rose-300 animate-pulse';
       } else if (microSecondsLeft >= 481) {
-        phaseEl.textContent = 'Fase 1: Pendahuluan (10:00–08:01)';
+        phaseEl.textContent = 'Fase 1: Pendahuluan (2 Menit)';
         phaseEl.className = 'text-xs font-extrabold text-amber-300';
         timerEl.className = 'font-mono text-lg sm:text-xl font-extrabold tracking-wider text-amber-400';
       } else if (microSecondsLeft >= 121) {
-        phaseEl.textContent = 'Fase 2: Kegiatan Inti (08:00–02:01)';
+        phaseEl.textContent = 'Fase 2: Kegiatan Inti (6 Menit)';
         phaseEl.className = 'text-xs font-extrabold text-sky-300';
         timerEl.className = 'font-mono text-lg sm:text-xl font-extrabold tracking-wider text-amber-300';
       } else {
-        phaseEl.textContent = 'Fase 3: Penutup (02:00–00:00)';
+        phaseEl.textContent = 'Fase 3: Penutup (2 Menit)';
         phaseEl.className = 'text-xs font-extrabold text-amber-300';
         timerEl.className = 'font-mono text-lg sm:text-xl font-extrabold tracking-wider text-amber-400';
       }
@@ -1264,19 +1416,23 @@
         panel.classList.add('hidden');
         eyeOpen.classList.add('hidden');
         eyeClosed.classList.remove('hidden');
-        label.textContent = 'Tampilkan';
+        label.textContent = 'Tampilkan Angka';
       } else {
         panel.classList.remove('hidden');
         eyeOpen.classList.remove('hidden');
         eyeClosed.classList.add('hidden');
-        label.textContent = 'Sembunyikan';
+        label.textContent = 'Sembunyikan Angka';
       }
     }
 
     /* =====================================================================
-       C. NAVIGASI 4 TAB UTAMA (TOGGLE CLASS "hidden" LANGSUNG DI DOM)
+       C. NAVIGASI 4 TAB UTAMA & PINTASAN KEYBOARD (1-4 & PANAH SLIDE TAB 2)
        ===================================================================== */
+    let currentMainTab = 1;
+    let currentTab2Slide = 0;
+
     function switchTab(tabIndex) {
+      currentMainTab = tabIndex;
       for (let i = 1; i <= 4; i++) {
         const section = document.getElementById(`tab-${i}`);
         const btn = document.getElementById(`nav-tab-${i}`);
@@ -1297,7 +1453,7 @@
       if (tabIndex === 1) {
         setRaniGuide('wave', 'Halo Kelas X MPLB! Klik Kondisi A dan B untuk membandingkan sikap petugas front office.');
       } else if (tabIndex === 2) {
-        setRaniGuide('point', 'Perhatikan 3 pilar utama: Konsep 3A, Salam 3S, dan penanganan keluhan metode L-A-S-T!');
+        updateRaniForTab2Slide(currentTab2Slide);
       } else if (tabIndex === 3) {
         setRaniGuide('point', 'Waktunya simulasi roleplay! Centang setiap langkah Instruksi Kerja saat temanmu tampil.');
       } else if (tabIndex === 4) {
@@ -1305,17 +1461,21 @@
       }
     }
 
-    // Pintasan keyboard angka 1-4 (nonaktif saat fokus pada elemen input)
+    // Pintasan keyboard angka 1-4 & panah kiri/kanan saat berada di Tab 2
     document.addEventListener('keydown', (e) => {
       const tag = document.activeElement ? document.activeElement.tagName : '';
       if (['INPUT', 'TEXTAREA', 'SELECT'].includes(tag)) return;
       if (['1', '2', '3', '4'].includes(e.key)) {
         switchTab(Number(e.key));
+      } else if (currentMainTab === 2 && e.key === 'ArrowRight') {
+        nextTab2Slide();
+      } else if (currentMainTab === 2 && e.key === 'ArrowLeft') {
+        prevTab2Slide();
       }
     });
 
     /* =====================================================================
-       D. TAB 1: PEMANTIK INTERAKTIF (KONDISI A VS KONDISI B)
+       D. TAB 1: PEMANTIK INTERAKTIF & 3 TUJUAN PEMBELAJARAN
        ===================================================================== */
     function selectApersepsiCard(choice) {
       const cardA = document.getElementById('apersepsi-card-a');
@@ -1331,7 +1491,7 @@
         cardA.classList.toggle('border-rose-500', isOpen);
         cardA.classList.toggle('ring-2', isOpen);
         cardA.classList.toggle('ring-rose-200', isOpen);
-        badgeA.textContent = isOpen ? 'Dialog Aktif' : 'Klik untuk Dialog';
+        badgeA.textContent = isOpen ? 'Dampak Terbuka' : 'Klik untuk Dampak';
         if (isOpen) {
           setRaniGuide('listen', 'Waduh, petugas di Kondisi A cuek sekali! Kira-kira bagaimana perasaan tamu kantor ya?');
         }
@@ -1341,7 +1501,7 @@
         cardB.classList.toggle('border-blue-800', isOpen);
         cardB.classList.toggle('ring-2', isOpen);
         cardB.classList.toggle('ring-blue-200', isOpen);
-        badgeB.textContent = isOpen ? 'Dialog Aktif' : 'Klik untuk Dialog';
+        badgeB.textContent = isOpen ? 'Dampak Terbuka' : 'Klik untuk Dampak';
         if (isOpen) {
           setRaniGuide('wave', 'Nah, ini dia standar Salam 3S! Ramah, sigap, dan membuat tamu merasa dihormati.');
         }
@@ -1353,135 +1513,258 @@
       document.getElementById('apersepsi-detail-b').classList.remove('hidden');
       document.getElementById('apersepsi-card-a').classList.add('border-rose-500', 'ring-2', 'ring-rose-200');
       document.getElementById('apersepsi-card-b').classList.add('border-blue-800', 'ring-2', 'ring-blue-200');
-      document.getElementById('badge-selected-a').textContent = 'Dialog Aktif';
-      document.getElementById('badge-selected-b').textContent = 'Dialog Aktif';
-      setRaniGuide('point', 'Bandingkan dialog Kondisi A dan Kondisi B, lalu diskusikan dampaknya bagi citra kantor!');
+      document.getElementById('badge-selected-a').textContent = 'Dampak Terbuka';
+      document.getElementById('badge-selected-b').textContent = 'Dampak Terbuka';
+      setRaniGuide('point', 'Bandingkan dialog Kondisi A dan Kondisi B, lalu diskusikan dampaknya bagi kepuasan tamu!');
+    }
+
+    const objectiveOpened = [false, false, false];
+
+    function toggleObjective(idx) {
+      objectiveOpened[idx] = !objectiveOpened[idx];
+      const textEl = document.getElementById(`obj-text-${idx}`);
+      const placeholderEl = document.getElementById(`obj-placeholder-${idx}`);
+      const statusEl = document.getElementById(`obj-status-${idx}`);
+      const cardEl = document.getElementById(`obj-card-${idx}`);
+
+      if (objectiveOpened[idx]) {
+        textEl.classList.remove('hidden');
+        placeholderEl.classList.add('hidden');
+        statusEl.textContent = '✓ Terbuka';
+        statusEl.className = 'text-[11px] font-extrabold text-amber-300';
+        cardEl.className = 'cursor-pointer bg-white/20 border-2 border-amber-400 rounded-xl p-3.5 transition-all shadow';
+        setRaniGuide('point', `Tujuan Pembelajaran ${idx + 1} sudah terbuka! Mari kita capai bersama hari ini.`);
+      } else {
+        textEl.classList.add('hidden');
+        placeholderEl.classList.remove('hidden');
+        statusEl.textContent = 'Klik untuk buka';
+        statusEl.className = 'text-[11px] font-semibold text-blue-200';
+        cardEl.className = 'cursor-pointer bg-white/10 hover:bg-white/15 border-2 border-white/20 rounded-xl p-3.5 transition-all';
+      }
+    }
+
+    function revealAllObjectives() {
+      for (let i = 0; i < 3; i++) {
+        if (!objectiveOpened[i]) toggleObjective(i);
+      }
     }
 
     /* =====================================================================
-       E. TAB 2: MATERI INTI (KONSEP 3A, SALAM 3S & METODE LAST)
+       E. TAB 2: MATERI INTI 1 SLIDE = 1 MATERI PENUH (3A, SALAM 3S & LAST)
        ===================================================================== */
-    const state3A = [true, false, false];
-
-    function toggleCard3A(idx) {
-      state3A[idx] = !state3A[idx];
-      const content = document.getElementById(`content-3a-${idx}`);
-      const chevron = document.getElementById(`chevron-3a-${idx}`);
-      const card = document.getElementById(`card-3a-${idx}`);
-
-      if (state3A[idx]) {
-        content.classList.remove('hidden');
-        chevron.classList.add('rotate-180', 'text-blue-900');
-        card.className = 'cursor-pointer rounded-xl border-2 border-blue-800 bg-white p-2.5 shadow-sm transition-all';
-      } else {
-        content.classList.add('hidden');
-        chevron.classList.remove('rotate-180', 'text-blue-900');
-        card.className = 'cursor-pointer rounded-xl border-2 border-slate-200 hover:border-blue-800 bg-slate-50/80 p-2.5 transition-all';
+    function updateRaniForTab2Slide(slideIdx) {
+      if (slideIdx === 0) {
+        setRaniGuide('point', 'Materi 1/3: Konsep 3A Pelayanan Prima! Klik tiap kartu untuk menyorot contoh praktik kantor.');
+      } else if (slideIdx === 1) {
+        setRaniGuide('wave', 'Materi 2/3: Teknik Salam 3S! Klik berurutan Senyum, Salam, lalu Sapa ya.');
+      } else if (slideIdx === 2) {
+        setRaniGuide('listen', 'Materi 3/3: Metode L-A-S-T! Klik tiap huruf raksasa untuk membedah penanganan keluhan.');
       }
     }
 
-    function toggleAll3A() {
-      const anyClosed = state3A.some((v) => !v);
+    function switchTab2Slide(slideIdx) {
+      currentTab2Slide = slideIdx;
+
       for (let i = 0; i < 3; i++) {
-        if (state3A[i] !== anyClosed) {
-          toggleCard3A(i);
+        const slideEl = document.getElementById(`mat-slide-${i}`);
+        const navBtn = document.getElementById(`subnav-mat-${i}`);
+
+        if (i === slideIdx) {
+          slideEl.classList.remove('hidden');
+          navBtn.className = 'px-4 py-2 rounded-xl text-xs sm:text-sm font-extrabold transition-all border-2 bg-[#1E3A8A] text-amber-300 border-[#1E3A8A] shadow-sm';
+        } else {
+          slideEl.classList.add('hidden');
+          navBtn.className = 'px-4 py-2 rounded-xl text-xs sm:text-sm font-extrabold transition-all border-2 bg-slate-50 text-slate-700 border-slate-200 hover:border-blue-800 hover:bg-blue-50';
         }
       }
+
+      // Perbarui status tombol Sebelumnya / Berikutnya
+      const prevBtn = document.getElementById('btn-sub-prev');
+      const nextBtn = document.getElementById('btn-sub-next');
+
+      if (slideIdx === 0) {
+        prevBtn.disabled = true;
+        prevBtn.className = 'inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-slate-200 bg-slate-100 text-slate-400 text-xs sm:text-sm font-bold transition disabled:cursor-not-allowed';
+      } else {
+        prevBtn.disabled = false;
+        prevBtn.className = 'inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-[#1E3A8A] bg-blue-50 hover:bg-blue-100 text-[#1E3A8A] text-xs sm:text-sm font-extrabold transition';
+      }
+
+      if (slideIdx === 2) {
+        nextBtn.disabled = true;
+        nextBtn.className = 'inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-slate-200 bg-slate-100 text-slate-400 text-xs sm:text-sm font-bold transition disabled:cursor-not-allowed';
+      } else {
+        nextBtn.disabled = false;
+        nextBtn.className = 'inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-[#1E3A8A] bg-blue-50 hover:bg-blue-100 text-[#1E3A8A] text-xs sm:text-sm font-extrabold transition';
+      }
+
+      updateRaniForTab2Slide(slideIdx);
     }
 
-    // Data Teknik Salam 3S
-    const data3S = [
-      {
-        title: '1. Senyum Tulus & Ramah',
-        text: 'Menunjukkan keramahan, ketulusan, dan kesiapan melayani sejak detik pertama tamu tiba di meja front office.',
-        tip: 'Langkah 1: Berikan senyum tulus dan kontak mata hangat sebelum berbicara!'
-      },
-      {
-        title: '2. Salam Sopan & Santun',
-        text: 'Mengucapkan salam sesuai waktu (Selamat Pagi / Siang) secara jelas diikuti nama instansi.',
-        tip: 'Langkah 2: Ucapkan salam dengan artikulasi jelas dan nada suara ramah.'
-      },
-      {
-        title: '3. Sapa Proaktif & Menghormati',
-        text: 'Menyebutkan identitas petugas, sapaan hormat Bapak/Ibu, serta menawarkan bantuan secara proaktif.',
-        tip: 'Langkah 3: Gunakan panggilan hormat Bapak/Ibu dan tanyakan keperluannya!'
+    function prevTab2Slide() {
+      if (currentTab2Slide > 0) {
+        switchTab2Slide(currentTab2Slide - 1);
       }
+    }
+
+    function nextTab2Slide() {
+      if (currentTab2Slide < 2) {
+        switchTab2Slide(currentTab2Slide + 1);
+      }
+    }
+
+    // Slide 2.1: Sorot Fokus Kartu 3A (Attitude, Attention, Action)
+    const tips3A = [
+      'Unsur 1 Attitude: Sikap ramah, sabar, berpenampilan rapi, dan tidak memotong pembicaraan adalah kunci kesan pertama!',
+      'Unsur 2 Attention: Dengarkan kebutuhan tamu dengan penuh perhatian tanpa distraksi ponsel atau pekerjaan lain!',
+      'Unsur 3 Action: Berikan tindakan nyata dan respon cepat agar kebutuhan tamu terselesaikan hingga tuntas!'
+    ];
+
+    function focus3ACard(idx) {
+      for (let i = 0; i < 3; i++) {
+        const card = document.getElementById(`card-3a-${i}`);
+        const detail = document.getElementById(`detail-3a-${i}`);
+        const label = detail.querySelector('span');
+        const text = detail.querySelector('p');
+
+        if (i === idx) {
+          card.className = 'cursor-pointer rounded-2xl bg-white border-2 border-amber-500 ring-4 ring-amber-100 p-5 flex flex-col justify-between shadow-md transition-all scale-[1.01]';
+          detail.className = 'mt-4 pt-3 border-t border-amber-200 bg-amber-50/90 rounded-xl p-4 transition-all';
+          label.className = 'text-[11px] font-extrabold uppercase tracking-wider text-amber-900 block mb-1';
+          text.className = 'text-sm sm:text-base font-bold text-slate-900 leading-snug';
+        } else {
+          card.className = 'cursor-pointer rounded-2xl bg-white border-2 border-slate-200 hover:border-blue-800 p-5 flex flex-col justify-between shadow-sm transition-all opacity-90';
+          detail.className = 'mt-4 pt-3 border-t border-slate-100 bg-slate-50 rounded-xl p-3.5 transition-all';
+          label.className = 'text-[11px] font-extrabold uppercase tracking-wider text-slate-600 block mb-1';
+          text.className = 'text-xs sm:text-sm font-semibold text-slate-700 leading-snug';
+        }
+      }
+      setRaniGuide('point', tips3A[idx]);
+    }
+
+    // Slide 2.2: Teknik Salam 3S (Tahapan Berurutan & Peragakan Semua)
+    const tips3S = [
+      'Tahap 1 (Senyum): Postur tegak, kontak mata hangat, dan tersenyum tulus menyambut tamu!',
+      'Tahap 2 (Salam): Ucapkan "Selamat pagi, SMKS Pasundan 3 Bandung, dengan Azkia." dengan jelas!',
+      'Tahap 3 (Sapa): Sapa dengan panggilan hormat "Ada yang bisa saya bantu, Bapak/Ibu?"'
     ];
 
     function select3SStep(stepIdx) {
       for (let i = 0; i < 3; i++) {
         const btn = document.getElementById(`btn-3s-${i}`);
-        const spanTop = btn.querySelector('span:first-child');
-        const quoteSeg = document.getElementById(`quote-3s-${i}`);
+        const badge = btn.querySelector('span');
+        const desc = btn.querySelector('p');
+        const line = document.getElementById(`dialog-line-${i}`);
+        const lineBadge = line.querySelector('span');
 
         if (i === stepIdx) {
-          btn.className = 'py-2 px-1.5 rounded-xl border-2 font-extrabold text-xs transition-all flex flex-col items-center gap-0.5 bg-[#1E3A8A] text-white border-[#1E3A8A] shadow';
-          spanTop.className = 'text-[10px] uppercase text-amber-300';
-          quoteSeg.className = 'px-1.5 py-0.5 rounded bg-amber-400 text-indigo-950 font-extrabold transition-all';
+          btn.className = 'text-left p-5 rounded-2xl border-2 transition-all bg-[#1E3A8A] text-white border-[#1E3A8A] shadow-md';
+          badge.className = 'px-2.5 py-0.5 rounded-lg bg-amber-400 text-indigo-950 text-xs font-extrabold uppercase';
+          desc.className = 'text-xs sm:text-sm text-blue-100 mt-1.5 leading-relaxed';
+
+          line.className = 'p-3 rounded-xl bg-amber-400 text-indigo-950 font-extrabold transition-all shadow';
+          lineBadge.className = 'text-xs uppercase tracking-wider px-2 py-0.5 rounded bg-indigo-950 text-amber-300 mr-2';
+        } else if (i < stepIdx) {
+          btn.className = 'text-left p-5 rounded-2xl border-2 transition-all bg-blue-50 text-slate-900 border-blue-800 shadow-sm';
+          badge.className = 'px-2.5 py-0.5 rounded-lg bg-[#1E3A8A] text-amber-300 text-xs font-extrabold uppercase';
+          desc.className = 'text-xs sm:text-sm text-slate-700 mt-1.5 leading-relaxed';
+
+          line.className = 'p-3 rounded-xl bg-white/20 text-white font-bold transition-all';
+          lineBadge.className = 'text-xs uppercase tracking-wider px-2 py-0.5 rounded bg-amber-400 text-indigo-950 mr-2';
         } else {
-          btn.className = 'py-2 px-1.5 rounded-xl border-2 font-extrabold text-xs transition-all flex flex-col items-center gap-0.5 bg-slate-50 text-slate-700 border-slate-200 hover:border-blue-800';
-          spanTop.className = 'text-[10px] uppercase text-slate-500';
-          quoteSeg.className = 'text-blue-100 transition-all';
+          btn.className = 'text-left p-5 rounded-2xl border-2 transition-all bg-white text-slate-800 border-slate-200 hover:border-blue-800 shadow-sm';
+          badge.className = 'px-2.5 py-0.5 rounded-lg bg-slate-200 text-slate-700 text-xs font-extrabold uppercase';
+          desc.className = 'text-xs sm:text-sm text-slate-600 mt-1.5 leading-relaxed';
+
+          line.className = 'p-3 rounded-xl bg-white/10 text-blue-200/70 font-semibold transition-all';
+          lineBadge.className = 'text-xs uppercase tracking-wider px-2 py-0.5 rounded bg-white/15 text-blue-200 mr-2';
         }
       }
-
-      document.getElementById('desc-3s-title').textContent = data3S[stepIdx].title;
-      document.getElementById('desc-3s-text').textContent = data3S[stepIdx].text;
-      setRaniGuide('point', data3S[stepIdx].tip);
+      setRaniGuide('wave', tips3S[stepIdx]);
     }
 
-    // Data Penanganan Keluhan Metode LAST
+    function playAll3SSteps() {
+      for (let i = 0; i < 3; i++) {
+        const btn = document.getElementById(`btn-3s-${i}`);
+        const badge = btn.querySelector('span');
+        const desc = btn.querySelector('p');
+        const line = document.getElementById(`dialog-line-${i}`);
+        const lineBadge = line.querySelector('span');
+
+        btn.className = 'text-left p-5 rounded-2xl border-2 transition-all bg-[#1E3A8A] text-white border-amber-400 shadow-md';
+        badge.className = 'px-2.5 py-0.5 rounded-lg bg-amber-400 text-indigo-950 text-xs font-extrabold uppercase';
+        desc.className = 'text-xs sm:text-sm text-blue-100 mt-1.5 leading-relaxed';
+
+        line.className = 'p-3 rounded-xl bg-amber-400 text-indigo-950 font-extrabold transition-all shadow';
+        lineBadge.className = 'text-xs uppercase tracking-wider px-2 py-0.5 rounded bg-indigo-950 text-amber-300 mr-2';
+      }
+      setRaniGuide('cheer', 'Sempurna! Rangkaian Senyum, Salam, dan Sapa diperagakan secara utuh dan profesional!');
+    }
+
+    // Slide 2.3: Penanganan Keluhan Pelanggan Metode L-A-S-T
     const dataLAST = [
       {
-        title: 'L — Listen (Dengarkan)',
-        counter: 'Tahap 1/4',
-        desc: 'Dengarkan seluruh keluhan pelanggan dengan tenang, tanpa memotong pembicaraan, dan tanpa membela diri.',
+        badge: 'Penanganan Keluhan Pelanggan • Tahap 1 dari 4',
+        title: 'L — Listen (Dengarkan dengan Empati)',
+        desc: 'Dengarkan seluruh keluhan pelanggan dengan tenang, penuh perhatian, tanpa memotong pembicaraan, dan tanpa membela diri.',
         quote: '“Baik, Bapak/Ibu, silakan ceritakan kendala yang dialami. Saya dengarkan dengan baik.”',
+        tipbox: 'Tips Kunci & Hindari: Jangan memotong pembicaraan atau membela diri saat pelanggan emosi, karena memicu kemarahan semakin tinggi dan terkesan tidak menghargai tamu.',
         pose: 'listen',
-        tip: 'Tahap Listen: Dengarkan keluhan pelanggan dengan empati tanpa memotong pembicaraan!'
+        rani: 'Tahap Listen: Dengarkan keluhan pelanggan dengan penuh empati tanpa memotong pembicaraan!'
       },
       {
-        title: 'A — Apologize (Minta Maaf)',
-        counter: 'Tahap 2/4',
-        desc: 'Sampaikan permohonan maaf tulus atas ketidaknyamanan yang dirasakan pelanggan sebagai wujud empati.',
+        badge: 'Penanganan Keluhan Pelanggan • Tahap 2 dari 4',
+        title: 'A — Apologize (Minta Maaf dengan Tulus)',
+        desc: 'Sampaikan permohonan maaf yang tulus atas ketidaknyamanan yang dirasakan pelanggan sebagai wujud empati dan tanggung jawab layanan.',
         quote: '“Mohon maaf yang sebesar-besarnya atas ketidaknyamanan yang Bapak/Ibu alami.”',
+        tipbox: 'Tips Kunci & Hindari: Hindari menyalahkan bagian lain atau menyalahkan pelanggan; fokuslah mengakui ketidaknyamanan yang dirasakan tamu.',
         pose: 'point',
-        tip: 'Tahap Apologize: Sampaikan permohonan maaf secara tulus dan penuh empati.'
+        rani: 'Tahap Apologize: Sampaikan permohonan maaf dengan tulus dan penuh empati.'
       },
       {
-        title: 'S — Solve (Beri Solusi)',
-        counter: 'Tahap 3/4',
-        desc: 'Tawarkan alternatif solusi konkrit dengan cepat dan tepat sesuai prosedur atau wewenang kantor.',
+        badge: 'Penanganan Keluhan Pelanggan • Tahap 3 dari 4',
+        title: 'S — Solve (Beri Solusi Konkrit & Cepat)',
+        desc: 'Tawarkan alternatif solusi konkrit dengan cepat dan tepat sesuai prosedur/wewenang, atau teruskan kepada atasan jika di luar wewenang.',
         quote: '“Saya bantu periksa status dokumennya sekarang juga, Pak, agar segera terselesaikan.”',
+        tipbox: 'Tips Kunci & Hindari: Jangan memberikan janji kosong di luar prosedur; berikan kepastian tindak lanjut dan estimasi waktu yang jelas.',
         pose: 'point',
-        tip: 'Tahap Solve: Berikan solusi nyata dan cepat sesuai prosedur kerja!'
+        rani: 'Tahap Solve: Tawarkan solusi nyata dan cepat sesuai prosedur kerja kantor!'
       },
       {
-        title: 'T — Thank (Terima Kasih)',
-        counter: 'Tahap 4/4',
-        desc: 'Ucapkan terima kasih atas masukan perbaikan layanan yang diberikan oleh pelanggan.',
+        badge: 'Penanganan Keluhan Pelanggan • Tahap 4 dari 4',
+        title: 'T — Thank (Ucapkan Terima Kasih)',
+        desc: 'Ucapkan terima kasih atas masukan dan kesabaran pelanggan demi perbaikan kualitas layanan organisasi di masa mendatang.',
         quote: '“Terima kasih banyak telah menyampaikan masukan ini kepada kami, Ibu.”',
+        tipbox: 'Tips Kunci & Hindari: Tutup interaksi dengan senyum ramah agar tamu pulang dengan kesan positif meskipun sempat mengalami kendala.',
         pose: 'wave',
-        tip: 'Tahap Thank: Ucapkan terima kasih atas masukan demi peningkatan layanan!'
+        rani: 'Tahap Thank: Ucapkan terima kasih atas masukan berharga demi peningkatan kualitas layanan!'
       }
     ];
 
     function selectLastStep(idx) {
       for (let i = 0; i < 4; i++) {
         const btn = document.getElementById(`btn-last-${i}`);
+        const letter = btn.querySelector('span:first-child');
+        const subText = btn.querySelector('div span:last-child');
+
         if (i === idx) {
-          btn.className = 'py-2 px-1 rounded-xl border-2 font-extrabold transition-all flex flex-col items-center bg-[#312E81] text-amber-300 border-[#312E81] shadow';
+          btn.className = 'py-3.5 px-4 rounded-2xl border-2 transition-all flex items-center justify-center gap-3 bg-[#312E81] text-amber-300 border-[#312E81] shadow-md';
+          letter.className = 'text-2xl sm:text-3xl font-black leading-none text-amber-300';
+          subText.className = 'block text-[11px] text-blue-100';
         } else {
-          btn.className = 'py-2 px-1 rounded-xl border-2 font-extrabold transition-all flex flex-col items-center bg-slate-50 text-slate-700 border-slate-200 hover:border-amber-500';
+          btn.className = 'py-3.5 px-4 rounded-2xl border-2 transition-all flex items-center justify-center gap-3 bg-white text-slate-800 border-slate-200 hover:border-amber-500 shadow-sm';
+          letter.className = 'text-2xl sm:text-3xl font-black leading-none text-[#1E3A8A]';
+          subText.className = 'block text-[11px] text-slate-500';
         }
       }
 
+      document.getElementById('last-step-badge').textContent = dataLAST[idx].badge;
       document.getElementById('last-step-title').textContent = dataLAST[idx].title;
-      document.getElementById('last-step-counter').textContent = dataLAST[idx].counter;
       document.getElementById('last-step-desc').textContent = dataLAST[idx].desc;
       document.getElementById('last-step-quote').textContent = dataLAST[idx].quote;
+      document.getElementById('last-step-tipbox').innerHTML = `<strong>${dataLAST[idx].tipbox.split(':')[0]}:</strong>${dataLAST[idx].tipbox.slice(dataLAST[idx].tipbox.indexOf(':') + 1)}`;
 
-      setRaniGuide(dataLAST[idx].pose, dataLAST[idx].tip);
+      setRaniGuide(dataLAST[idx].pose, dataLAST[idx].rani);
     }
 
     /* =====================================================================
@@ -1866,7 +2149,7 @@
       const btn = document.getElementById('btn-reflection-key');
       box.classList.toggle('hidden');
       const isOpen = !box.classList.contains('hidden');
-      btn.textContent = isOpen ? 'Sembunyikan Kunci Refleksi' : 'Tampilkan Kunci Refleksi';
+      btn.textContent = isOpen ? 'Tutup Jawaban Refleksi' : 'Buka Jawaban Refleksi';
       if (isOpen) {
         setRaniGuide('listen', 'Tepat! Langkah pertama menghadapi pelanggan emosi adalah Listen — dengarkan dengan tenang.');
       }
@@ -1874,7 +2157,11 @@
 
     // Inisialisasi awal saat halaman dimuat
     window.addEventListener('DOMContentLoaded', () => {
+      if (window.lucide) {
+        lucide.createIcons();
+      }
       updateMicroTimerUI();
+      switchTab2Slide(0);
       select3SStep(0);
       selectLastStep(0);
       renderQuizQuestion();
